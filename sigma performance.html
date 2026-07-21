@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SigmaPerformance · Professional Terminal</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ---------- RESET & BASE ---------- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: #0b0e14;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'JetBrains Mono', 'Cascadia Code', 'Fira Code', monospace;
+            padding: 1.5rem;
+            animation: bgPulse 10s ease-in-out infinite alternate;
+        }
+
+        @keyframes bgPulse {
+            0% { background: #0b0e14; }
+            100% { background: #111820; }
+        }
+
+        /* ----- Terminal Window ----- */
+        .terminal {
+            max-width: 1200px;
+            width: 100%;
+            background: #0f131b;
+            border-radius: 20px;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.9),
+                0 0 0 1px #26303f inset,
+                0 0 40px rgba(74, 158, 255, 0.05);
+            padding: 1.5rem 2rem 1.8rem 2rem;
+            opacity: 0;
+            animation: terminalFadeIn 0.8s ease forwards;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            backdrop-filter: blur(2px);
+        }
+
+        @keyframes terminalFadeIn {
+            0% { opacity: 0; transform: translateY(20px) scale(0.98); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* ----- Window Bar (macOS-style) ----- */
+        .win-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+            padding-bottom: 0.7rem;
+            border-bottom: 1px solid #1e2838;
+            margin-bottom: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .win-dot {
+            height: 14px;
+            width: 14px;
+            border-radius: 50%;
+            background: #3a4556;
+            transition: transform 0.2s ease, filter 0.2s ease;
+            cursor: default;
+        }
+        .win-dot.red { background: #ff5f57; }
+        .win-dot.yellow { background: #ffbd2e; }
+        .win-dot.green { background: #28c840; }
+        .win-dot:hover { transform: scale(1.15); filter: brightness(1.2); }
+
+        .win-title {
+            color: #6b809e;
+            font-size: 0.8rem;
+            letter-spacing: 0.3px;
+            margin-left: 0.5rem;
+            flex: 1;
+            font-weight: 500;
+        }
+        .win-title i { margin-right: 0.5rem; color: #4a9eff; }
+
+        .win-controls {
+            color: #3a4556;
+            font-size: 0.7rem;
+            display: flex;
+            gap: 0.6rem;
+        }
+        .win-controls i { transition: color 0.2s; cursor: default; }
+        .win-controls i:hover { color: #6b809e; }
+
+        /* ----- Scrollable Output Area ----- */
+        .output-area {
+            flex: 1;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            scroll-behavior: smooth;
+        }
+        .output-area::-webkit-scrollbar { width: 6px; }
+        .output-area::-webkit-scrollbar-track { background: #0f131b; }
+        .output-area::-webkit-scrollbar-thumb { background: #2b3a50; border-radius: 8px; }
+        .output-area::-webkit-scrollbar-thumb:hover { background: #3e5270; }
+
+        /* ----- Typography ----- */
+        .line {
+            color: #d4deec;
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 0.2rem;
+            word-break: break-word;
+        }
+        .line.static { opacity: 1; animation: none; }
+
+        .prompt-cmd { color: #6fcf97; font-weight: 500; }
+        .cmd-text { color: #e5e9f0; }
+
+        .output {
+            color: #b8c9e5;
+            padding-left: 1.8rem;
+            margin-bottom: 0.25rem;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+        .output i { color: #4a9eff; width: 1.6rem; margin-right: 0.2rem; text-align: center; }
+
+        .highlight { color: #f0c674; }
+        .highlight-blue { color: #4a9eff; }
+        .highlight-cyan { color: #6fc3df; }
+        .dim { color: #5f738f; }
+        .green-text { color: #6fcf97; }
+
+        /* ----- Service List (static) ----- */
+        .service-list { padding-left: 1.8rem; margin: 0.2rem 0 0.3rem 0; }
+        .service-item {
+            color: #b8c9e5;
+            font-size: 0.88rem;
+            margin-bottom: 0.1rem;
+            transition: all 0.2s ease;
+            padding: 0.05rem 0.3rem;
+            border-radius: 4px;
+            cursor: default;
+        }
+        .service-item:hover { background: #1a2536; color: #ffffff; transform: translateX(4px); }
+        .service-item i { color: #4a9eff; width: 1.6rem; margin-right: 0.2rem; transition: transform 0.2s ease; }
+        .service-item:hover i { transform: scale(1.1); color: #6fc3df; }
+        .service-item .num { color: #5f738f; display: inline-block; width: 2rem; }
+
+        .divider-term { border: none; border-top: 1px dashed #1e2838; margin: 0.8rem 0; }
+
+        /* ----- Contact Line (static) ----- */
+        .contact-line {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem 1.8rem;
+            margin: 0.3rem 0 0.1rem 0;
+            padding: 0.3rem 0 0.1rem 0;
+            border-top: 1px solid #1e2838;
+            opacity: 1;
+        }
+        .contact-line a {
+            color: #4a9eff;
+            text-decoration: none;
+            border-bottom: 1px dotted #2b4a6b;
+            transition: all 0.2s ease;
+        }
+        .contact-line a:hover {
+            color: #7aa9f0;
+            border-bottom-color: #4a9eff;
+            text-shadow: 0 0 12px rgba(74, 158, 255, 0.2);
+        }
+
+        /* ----- Input Line ----- */
+        .input-line {
+            display: flex;
+            align-items: center;
+            gap: 0.2rem;
+            color: #d4deec;
+            font-size: 0.95rem;
+            margin-top: 0.2rem;
+            border-top: 1px solid #1e2838;
+            padding-top: 0.7rem;
+            flex-shrink: 0;
+        }
+        .input-prompt { color: #6fcf97; font-weight: 500; white-space: nowrap; }
+        .input-area { display: flex; flex: 1; align-items: center; position: relative; }
+        #cmdInput {
+            background: transparent;
+            border: none;
+            color: #e5e9f0;
+            font-family: inherit;
+            font-size: 0.95rem;
+            outline: none;
+            flex: 1;
+            padding: 0.1rem 0;
+            caret-color: #6fcf97;
+            letter-spacing: 0.2px;
+        }
+        #cmdInput::selection { background: #2b3a50; }
+        .cursor-blink {
+            display: inline-block;
+            width: 11px;
+            height: 1.2rem;
+            background: #6fcf97;
+            vertical-align: text-bottom;
+            animation: blink 1s step-end infinite;
+            margin-left: 2px;
+        }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* ----- Progress Bar (optimization) ----- */
+        .progress-container { padding-left: 1.8rem; margin: 0.3rem 0; }
+        .progress-bar {
+            width: 100%;
+            max-width: 420px;
+            height: 16px;
+            background: #1a2536;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid #2b3a50;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.4);
+        }
+        .progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #6fcf97, #4a9eff);
+            border-radius: 20px;
+            transition: width 0.35s ease;
+            box-shadow: 0 0 20px rgba(74, 158, 255, 0.25);
+        }
+        .progress-label { color: #5f738f; font-size: 0.75rem; margin-left: 0.5rem; }
+
+        /* ----- Relax bouncing ball monitor ----- */
+        .relax-monitor {
+            background: #0a0d13;
+            border: 1px solid #1e2838;
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 16 / 9;
+            position: relative;
+            overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.6);
+        }
+
+        .ball {
+            position: absolute;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #7ecf9f, #2a8a5a);
+            box-shadow: 0 0 25px rgba(111, 207, 151, 0.5);
+            will-change: transform, left, top;
+            transition: transform 0.12s cubic-bezier(0.34, 1.2, 0.64, 1);
+            transform-origin: center center;
+        }
+
+        .relax-sub {
+            text-align: center;
+            color: #3e5270;
+            font-size: 0.7rem;
+            margin-top: 0.2rem;
+            letter-spacing: 4px;
+        }
+
+        /* ----- Footer ----- */
+        .footer-term {
+            margin-top: 0.8rem;
+            font-size: 0.7rem;
+            color: #3e5270;
+            border-top: 1px solid #1e2838;
+            padding-top: 0.7rem;
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            flex-shrink: 0;
+            letter-spacing: 0.2px;
+        }
+        .footer-term span i { margin-right: 0.3rem; color: #4a9eff; }
+
+        /* ----- Responsive ----- */
+        @media (max-width: 700px) {
+            .terminal { padding: 1rem; max-height: 95vh; }
+            .line, .input-line, #cmdInput { font-size: 0.82rem; }
+            .service-list { padding-left: 0.8rem; }
+            .output { padding-left: 0.8rem; }
+            .win-title { font-size: 0.65rem; }
+            .contact-line { gap: 0.3rem 1rem; }
+            .progress-bar { max-width: 100%; }
+            .relax-monitor { max-width: 100%; }
+            .ball { width: 28px; height: 28px; }
+        }
+
+        @media print {
+            body { background: white; padding: 0.2in; }
+            .terminal { box-shadow: none; border: 1px solid #ccc; background: #fafafa; }
+            .win-dot { background: #aaa; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="terminal">
+
+    <!-- ====== WINDOW BAR ====== -->
+    <div class="win-bar">
+        <span class="win-dot red"></span>
+        <span class="win-dot yellow"></span>
+        <span class="win-dot green"></span>
+        <span class="win-title"><i class="fas fa-terminal"></i> SigmaPerformance</span>
+        <span class="win-controls">
+            <i class="fas fa-minus"></i>
+            <i class="fas fa-expand"></i>
+            <i class="fas fa-times"></i>
+        </span>
+    </div>
+
+    <!-- ====== OUTPUT AREA ====== -->
+    <div class="output-area" id="outputArea">
+
+        <!-- Static Header -->
+        <div class="line static">
+            <span class="prompt-cmd">C:\Users\sigma&gt;</span>
+            <span class="cmd-text">echo SigmaPerformance — Windows performance optimization</span>
+        </div>
+        <div class="output static">
+            <i class="fas fa-bolt" style="color:#f0c674;"></i> SigmaPerformance · Enterprise‑grade Windows scripting &amp; deployment
+        </div>
+
+        <!-- Services -->
+        <div class="line static">
+            <span class="prompt-cmd">C:\sigma&gt;</span>
+            <span class="cmd-text">dir /b /services</span>
+        </div>
+        <div class="service-list static">
+            <div class="service-item"><span class="num">[1]</span> <i class="fas fa-tachometer-alt"></i> Windows performance optimization using custom scripts</div>
+            <div class="service-item"><span class="num">[2]</span> <i class="fas fa-window-restore"></i> Clean installation with unattended answer files &amp; USB media</div>
+            <div class="service-item"><span class="num">[3]</span> <i class="fas fa-microchip"></i> Online/offline driver installation &amp; configuration</div>
+            <div class="service-item"><span class="num">[4]</span> <i class="fas fa-shield-alt"></i> Safe bloatware removal &amp; system cleanup</div>
+            <div class="service-item"><span class="num">[5]</span> <i class="fas fa-cog"></i> Workload‑specific system optimization</div>
+            <div class="service-item"><span class="num">[6]</span> <i class="fas fa-gamepad"></i> Controller latency calibration &amp; polling rate tuning</div>
+            <div class="service-item"><span class="num">[7]</span> <i class="fas fa-tools"></i> Troubleshooting, repair, and recovery</div>
+            <div class="service-item"><span class="num">[8]</span> <i class="fas fa-thermometer-half"></i> Overheating reduction via power‑plan scripts</div>
+            <div class="service-item"><span class="num">[9]</span> <i class="fas fa-cloud-upload-alt"></i> Remote support (AnyDesk)</div>
+            <div class="service-item"><span class="num">[10]</span> <i class="fas fa-hdd"></i> Drive cleanup &amp; maintenance (PowerShell/CMD)</div>
+            <div class="service-item"><span class="num">[11]</span> <i class="fas fa-sync-alt"></i> Windows updates &amp; system health monitoring</div>
+        </div>
+
+        <!-- Languages -->
+        <div class="line static">
+            <span class="prompt-cmd">C:\sigma&gt;</span>
+            <span class="cmd-text">type languages.txt</span>
+        </div>
+        <div class="output static" style="padding-left:1.8rem;">
+            <i class="fas fa-code"></i> <span class="highlight">Languages:</span> Answer file · Batch · PowerShell
+        </div>
+
+        <!-- Tools -->
+        <div class="line static">
+            <span class="prompt-cmd">C:\sigma&gt;</span>
+            <span class="cmd-text">type tools.txt</span>
+        </div>
+        <div class="output static" style="padding-left:1.8rem;">
+            <i class="fas fa-wrench"></i> <span class="highlight">Tools:</span> HIDUSBF · SDIO · Registry Editor · Notepad · CPU-Z · Rufus · Revo · BCUninstaller · Process Explorer · AnyDesk
+        </div>
+
+        <!-- Partnership -->
+        <div class="line static">
+            <span class="prompt-cmd">C:\sigma&gt;</span>
+            <span class="cmd-text">./partner --repair-shops</span>
+        </div>
+        <div class="output static" style="padding-left:1.8rem;">
+            <i class="fas fa-handshake" style="color:#f0c674;"></i> 
+            We help repair shops &amp; PC builders deliver professional Windows optimization using <span class="highlight-cyan">Answer files, Batch, PowerShell, and tuning tools</span>.
+        </div>
+        <div class="output static" style="padding-left:1.8rem;">
+            <i class="fas fa-bolt" style="color:#6fc3df;"></i> 
+            Extend hardware repairs with software performance — stable, repeatable, and fast.
+        </div>
+
+        <!-- Contact -->
+        <div class="contact-line static">
+            <span><i class="fas fa-envelope" style="color:#6fcf97;"></i> <a href="mailto:sigmaperformance.tech@gmail.com">sigmaperformance.tech@gmail.com</a></span>
+            <span><i class="fas fa-phone-alt" style="color:#6fcf97;"></i> <a href="tel:+18197128461">+1 (819) 712-8461</a></span>
+            <span><i class="fas fa-map-pin" style="color:#6fcf97;"></i> Ottawa, ON</span>
+        </div>
+
+        <div class="divider-term static"></div>
+        <div id="interactiveOutput"></div>
+    </div>
+
+    <!-- ====== INPUT LINE ====== -->
+    <div class="input-line">
+        <span class="input-prompt">C:\sigma&gt;</span>
+        <div class="input-area">
+            <input type="text" id="cmdInput" autofocus spellcheck="false" autocomplete="off" />
+            <span class="cursor-blink"></span>
+        </div>
+    </div>
+
+    <!-- ====== FOOTER ====== -->
+    <div class="footer-term">
+        <span><i class="far fa-copyright"></i> 2026 SigmaPerformance</span>
+        <span><i class="fas fa-map-pin"></i> Ottawa, ON</span>
+    </div>
+</div>
+
+<script>
+    (function() {
+        const outputArea = document.getElementById('outputArea');
+        const interactiveOutput = document.getElementById('interactiveOutput');
+        const cmdInput = document.getElementById('cmdInput');
+
+        // ----- Command list -----
+        const commandList = `
+Available commands:
+  sigma performance   – Run optimization animation (progress + steps)
+  services            – Top 3 recommended services with reasoning
+  languages           – Scripting pipeline (Answer File → Batch → PowerShell)
+  tools               – Detailed purpose of each tool
+  relax               – Soothing bouncing ball with squash & stretch
+  clear               – Clear interactive output
+`;
+
+        // ----- Helper: append output -----
+        function appendOutput(html, className = '') {
+            const div = document.createElement('div');
+            div.className = className;
+            div.innerHTML = html;
+            interactiveOutput.appendChild(div);
+            outputArea.scrollTop = outputArea.scrollHeight;
+        }
+
+        function appendLine(text, isCommand = false) {
+            if (isCommand) {
+                appendOutput(`<span class="prompt-cmd">C:\\sigma&gt;</span> <span class="cmd-text">${text}</span>`, 'line');
+            } else {
+                appendOutput(`<span class="output">${text}</span>`, 'output');
+            }
+        }
+
+        function clearInteractive() {
+            stopRelax();
+            interactiveOutput.innerHTML = '';
+        }
+
+        // ----- Relax bouncing ball with deformation -----
+        let relaxInterval = null;
+        let relaxContainer = null;
+        let ballElement = null;
+        let deformTimeout = null;
+
+        function startRelax() {
+            clearInteractive();
+
+            // Create monitor container
+            const monitor = document.createElement('div');
+            monitor.className = 'relax-monitor';
+            monitor.id = 'relaxMonitor';
+            interactiveOutput.appendChild(monitor);
+
+            // Create ball
+            const ball = document.createElement('div');
+            ball.className = 'ball';
+            monitor.appendChild(ball);
+            ballElement = ball;
+            relaxContainer = monitor;
+
+            // Set initial position (percentage)
+            let x = 10, y = 10;
+            let dx = 1.8, dy = 1.4;
+
+            // Deformation helper
+            function applyDeform(scaleX, scaleY) {
+                if (!ballElement) return;
+                // Clear any pending reset
+                if (deformTimeout) {
+                    clearTimeout(deformTimeout);
+                    deformTimeout = null;
+                }
+                // Apply transform
+                ballElement.style.transform = `scale(${scaleX}, ${scaleY})`;
+                // Reset after a short delay
+                deformTimeout = setTimeout(() => {
+                    if (ballElement) {
+                        ballElement.style.transform = 'scale(1, 1)';
+                    }
+                    deformTimeout = null;
+                }, 150);
+            }
+
+            // Move the ball
+            function moveBall() {
+                if (!ballElement || !relaxContainer) return;
+                const containerWidth = relaxContainer.clientWidth;
+                const containerHeight = relaxContainer.clientHeight;
+                const ballSize = ballElement.offsetWidth || 36;
+
+                // Current position in pixels
+                let px = (x / 100) * containerWidth;
+                let py = (y / 100) * containerHeight;
+
+                // Update
+                px += dx;
+                py += dy;
+
+                // Check collisions and bounce
+                let hitWall = false;
+                if (px <= 0) {
+                    px = 0;
+                    dx = -dx;
+                    hitWall = true;
+                    applyDeform(0.7, 1.3); // squash horizontally, stretch vertically
+                } else if (px >= containerWidth - ballSize) {
+                    px = containerWidth - ballSize;
+                    dx = -dx;
+                    hitWall = true;
+                    applyDeform(0.7, 1.3);
+                }
+
+                if (py <= 0) {
+                    py = 0;
+                    dy = -dy;
+                    hitWall = true;
+                    applyDeform(1.3, 0.7); // stretch horizontally, squash vertically
+                } else if (py >= containerHeight - ballSize) {
+                    py = containerHeight - ballSize;
+                    dy = -dy;
+                    hitWall = true;
+                    applyDeform(1.3, 0.7);
+                }
+
+                // Store as percentage
+                x = (px / containerWidth) * 100;
+                y = (py / containerHeight) * 100;
+
+                // Apply position (no transition for position, we use transform for deformation)
+                ballElement.style.left = x + '%';
+                ballElement.style.top = y + '%';
+            }
+
+            // Start interval
+            if (relaxInterval) clearInterval(relaxInterval);
+            relaxInterval = setInterval(moveBall, 30);
+
+            // Handle resize to keep ball inside
+            const handleResize = () => {
+                if (ballElement && relaxContainer) {
+                    const cw = relaxContainer.clientWidth;
+                    const ch = relaxContainer.clientHeight;
+                    const bs = ballElement.offsetWidth || 36;
+                    // clamp position
+                    let px = (x / 100) * cw;
+                    let py = (y / 100) * ch;
+                    px = Math.max(0, Math.min(cw - bs, px));
+                    py = Math.max(0, Math.min(ch - bs, py));
+                    x = (px / cw) * 100;
+                    y = (py / ch) * 100;
+                    ballElement.style.left = x + '%';
+                    ballElement.style.top = y + '%';
+                }
+            };
+            window.addEventListener('resize', handleResize);
+            // store for cleanup
+            relaxContainer._resizeHandler = handleResize;
+
+            // Add a subtitle
+            const sub = document.createElement('div');
+            sub.className = 'relax-sub';
+            sub.textContent = '✦ relax ✦';
+            interactiveOutput.appendChild(sub);
+
+            outputArea.scrollTop = outputArea.scrollHeight;
+        }
+
+        function stopRelax() {
+            if (relaxInterval) {
+                clearInterval(relaxInterval);
+                relaxInterval = null;
+            }
+            if (deformTimeout) {
+                clearTimeout(deformTimeout);
+                deformTimeout = null;
+            }
+            if (relaxContainer) {
+                if (relaxContainer._resizeHandler) {
+                    window.removeEventListener('resize', relaxContainer._resizeHandler);
+                }
+                relaxContainer = null;
+            }
+            ballElement = null;
+        }
+
+        // ----- Optimization animation (unchanged) -----
+        function runOptimization() {
+            stopRelax();
+            clearInteractive();
+
+            const steps = [
+                { msg: 'Initializing optimization engine...', delay: 300 },
+                { msg: 'Scanning registry for performance bottlenecks...', delay: 400 },
+                { msg: 'Applying advanced performance tweaks...', delay: 500 },
+                { msg: 'Optimizing startup items and background services...', delay: 400 },
+                { msg: 'Cleaning temporary files and system cache...', delay: 400 },
+                { msg: 'Calibrating power plan for maximum efficiency...', delay: 400 },
+                { msg: 'Optimization complete! <span class="highlight">32%</span> performance improvement.', delay: 300 }
+            ];
+
+            cmdInput.disabled = true;
+            cmdInput.style.opacity = '0.5';
+
+            let progress = 0;
+            const progressHtml = `
+                <div class="progress-container">
+                    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
+                    <span class="progress-label" id="progressLabel">0%</span>
+                </div>
+            `;
+            const progDiv = document.createElement('div');
+            progDiv.className = 'output';
+            progDiv.innerHTML = progressHtml;
+            interactiveOutput.appendChild(progDiv);
+            outputArea.scrollTop = outputArea.scrollHeight;
+
+            let stepIndex = 0;
+            const intervalId = setInterval(() => {
+                if (stepIndex < steps.length) {
+                    const step = steps[stepIndex];
+                    const msgDiv = document.createElement('div');
+                    msgDiv.className = 'output';
+                    msgDiv.innerHTML = `<i class="fas fa-spinner fa-spin" style="color:#6fcf97;"></i> ${step.msg}`;
+                    interactiveOutput.appendChild(msgDiv);
+                    outputArea.scrollTop = outputArea.scrollHeight;
+
+                    progress = Math.min(100, (stepIndex + 1) / steps.length * 100);
+                    const fill = document.getElementById('progressFill');
+                    const label = document.getElementById('progressLabel');
+                    if (fill) fill.style.width = progress + '%';
+                    if (label) label.textContent = Math.round(progress) + '%';
+                    stepIndex++;
+                } else {
+                    clearInterval(intervalId);
+                    cmdInput.disabled = false;
+                    cmdInput.style.opacity = '1';
+                    cmdInput.focus();
+                    const finalMsg = document.createElement('div');
+                    finalMsg.className = 'output';
+                    finalMsg.innerHTML = `<i class="fas fa-check-circle" style="color:#6fcf97;"></i> <span class="highlight">System ready.</span>`;
+                    interactiveOutput.appendChild(finalMsg);
+                    outputArea.scrollTop = outputArea.scrollHeight;
+                }
+            }, 600);
+        }
+
+        // ----- Process commands -----
+        function processCommand(input) {
+            const trimmed = input.trim();
+            if (!trimmed) return;
+
+            stopRelax();
+            appendLine(trimmed, true);
+            const lower = trimmed.toLowerCase();
+
+            if (lower === 'sigma') {
+                appendOutput(commandList.replace(/\n/g, '<br>'), 'output');
+            }
+            else if (lower === 'sigma performance' || lower === 'performance') {
+                runOptimization();
+            }
+            else if (lower === 'relax') {
+                startRelax();
+            }
+            else if (lower === 'services') {
+                appendOutput(`
+                    <i class="fas fa-star" style="color:#f0c674;"></i> <span class="highlight">Top 3 Services for Gamers & Power Users:</span><br>
+                    <span style="padding-left:1.8rem; display:block;">
+                        <span class="highlight-cyan">[6] Controller latency optimization</span> – Reduces input lag using HIDUSBF and polling rate tools. Essential for competitive gaming.<br>
+                        <span class="highlight-cyan">[8] Overheating reduction</span> – Custom power plan scripts that lower CPU/GPU temps by up to 15°C without losing performance.<br>
+                        <span class="highlight-cyan">[1] Performance scripting</span> – Deep registry and service tweaks that give a permanent FPS boost.
+                    </span>
+                `, 'output');
+            }
+            else if (lower === 'languages') {
+                appendOutput(`
+                    <i class="fas fa-sitemap" style="color:#4a9eff;"></i> <span class="highlight">Our Scripting Pipeline:</span><br>
+                    <span style="padding-left:1.8rem; display:block; color:#b8c9e5;">
+                        <span class="highlight">Answer Files</span> (Unattended XML) → Deploy base Windows image<br>
+                        &nbsp;&nbsp;&nbsp;↓<br>
+                        <span class="highlight">Batch</span> (.bat) → Automate driver installation, registry imports, and first‑boot setup<br>
+                        &nbsp;&nbsp;&nbsp;↓<br>
+                        <span class="highlight">PowerShell</span> (.ps1) → Deep system tuning, service optimization, and health checks
+                    </span>
+                `, 'output');
+            }
+            else if (lower === 'tools') {
+                appendOutput(`
+                    <i class="fas fa-toolbox" style="color:#f0c674;"></i> <span class="highlight">Tool Breakdown:</span><br>
+                    <span style="padding-left:1.8rem; display:block; color:#b8c9e5;">
+                        <span class="highlight-cyan">HIDUSBF</span> – USB input lag reduction & polling rate booster<br>
+                        <span class="highlight-cyan">SDIO</span> – Snappy Driver Installer Origin – offline driver management<br>
+                        <span class="highlight-cyan">Registry Editor</span> – Manual and scripted system tweaks<br>
+                        <span class="highlight-cyan">CPU-Z</span> – Hardware diagnostics and benchmarking<br>
+                        <span class="highlight-cyan">Rufus</span> – Bootable USB creation for Windows deployment<br>
+                        <span class="highlight-cyan">Revo / BCUninstaller</span> – Deep bloatware and leftover file removal<br>
+                        <span class="highlight-cyan">Process Explorer</span> – Advanced task manager for debugging<br>
+                        <span class="highlight-cyan">AnyDesk</span> – Remote support for quick fixes
+                    </span>
+                `, 'output');
+            }
+            else if (lower === 'clear') {
+                clearInteractive();
+            }
+            else {
+                appendOutput(`<span class="dim">Command not recognized.</span>`, 'output');
+            }
+            outputArea.scrollTop = outputArea.scrollHeight;
+        }
+
+        // ----- Event listeners -----
+        cmdInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const val = this.value;
+                processCommand(val);
+                this.value = '';
+                e.preventDefault();
+            }
+        });
+
+        window.addEventListener('load', function() {
+            cmdInput.focus();
+            setTimeout(() => {
+                appendOutput(`<span class="dim">Type <span class="highlight">sigma</span> to see available commands.</span>`, 'output');
+                outputArea.scrollTop = outputArea.scrollHeight;
+            }, 500);
+        });
+
+        document.querySelector('.terminal').addEventListener('click', function(e) {
+            if (e.target.tagName !== 'INPUT') cmdInput.focus();
+        });
+
+        console.log('SigmaPerformance Terminal ready. Try "relax" for a bouncing ball with squash & stretch!');
+    })();
+</script>
+</body>
+</html>

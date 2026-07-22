@@ -27,6 +27,44 @@
             align-items: center;
             padding: 2rem 1.5rem;
             position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ---------- MATRIX BG ---------- */
+        .matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.10;
+        }
+        .matrix-bg span {
+            position: absolute;
+            color: #c9a84c;
+            font-family: 'Courier Prime', monospace;
+            font-size: 1.2rem;
+            animation: matrixFall linear infinite;
+            text-shadow: 0 0 10px rgba(201, 168, 76, 0.1);
+        }
+        @keyframes matrixFall {
+            0% {
+                transform: translateY(-10vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         body::before {
@@ -37,8 +75,8 @@
             width: 100%;
             height: 100%;
             background: repeating-linear-gradient(0deg,
-                    rgba(0, 0, 0, 0.2) 0px,
-                    rgba(0, 0, 0, 0.2) 2px,
+                    rgba(0, 0, 0, 0.25) 0px,
+                    rgba(0, 0, 0, 0.25) 2px,
                     transparent 2px,
                     transparent 6px);
             pointer-events: none;
@@ -64,18 +102,21 @@
             z-index: 10;
         }
 
-        /* ---------- MAIN FRAME ---------- */
+        /* ---------- FRAME ---------- */
         .frame {
             border: 2px solid #2a2e36;
             border-radius: 12px;
             background: #0f1217;
-            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(201, 168, 76, 0.02), 0 0 0 1px #1a1e24 inset;
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.9), 0 0 60px rgba(201, 168, 76, 0.02), 0 0 0 1px #1a1e24 inset;
             padding: 2.5rem 2.5rem;
             position: relative;
-            backdrop-filter: blur(1px);
+            backdrop-filter: blur(2px);
             margin-bottom: 1rem;
+            transition: box-shadow 0.3s ease;
         }
-
+        .frame:hover {
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.9), 0 0 80px rgba(201, 168, 76, 0.04), 0 0 0 1px #2a2e36 inset;
+        }
         .frame::after {
             content: '';
             position: absolute;
@@ -98,9 +139,9 @@
             color: #e8e0d5;
             letter-spacing: 0.02em;
         }
-
         .gold-accent {
             color: #c9a84c;
+            text-shadow: 0 0 20px rgba(201, 168, 76, 0.1);
         }
         .muted-teal {
             color: #5f7b89;
@@ -109,14 +150,12 @@
             font-family: 'Playfair Display', serif;
             font-style: italic;
         }
-
         .mono-detail {
             font-family: 'Courier Prime', monospace;
             font-size: 0.85rem;
             color: #7a8a94;
             letter-spacing: 0.04em;
         }
-
         .divider-line {
             width: 100%;
             height: 1px;
@@ -134,11 +173,12 @@
             padding-bottom: 1.2rem;
             border-bottom: 1px solid #1e232b;
             margin-bottom: 2.2rem;
+            gap: 1rem;
         }
-
         .logo {
             display: flex;
             flex-direction: column;
+            flex-shrink: 0;
         }
         .logo-text {
             font-size: 1.8rem;
@@ -153,7 +193,12 @@
             color: #5f7b89;
             margin-top: -0.1rem;
         }
-
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+        }
         .nav-links {
             display: flex;
             gap: 2.5rem;
@@ -172,6 +217,47 @@
         .nav-links a:hover {
             color: #c9a84c;
             border-bottom-color: #c9a84c;
+        }
+        .lang-switcher {
+            position: relative;
+            display: inline-block;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .lang-switcher select {
+            background: #0f1217;
+            color: #8e9bab;
+            border: 1px solid #2a2e36;
+            border-radius: 4px;
+            padding: 0.4rem 1.8rem 0.4rem 0.8rem;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6'%3E%3Cpath d='M0 0l4 6 4-6z' fill='%235f7389'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.6rem center;
+            background-size: 8px 6px;
+            transition: border-color 0.3s, color 0.3s;
+            min-width: 70px;
+        }
+        .lang-switcher select:hover {
+            border-color: #c9a84c;
+            color: #e8e0d5;
+        }
+        .lang-switcher select:focus {
+            border-color: #c9a84c;
+            box-shadow: 0 0 0 2px rgba(201, 168, 76, 0.1);
+        }
+        .lang-switcher select option {
+            background: #0f1217;
+            color: #e8e0d5;
         }
 
         /* ---------- HERO ---------- */
@@ -192,6 +278,7 @@
             color: #c9a84c;
             border-bottom: 2px solid #c9a84c;
             padding-bottom: 0.1rem;
+            text-shadow: 0 0 30px rgba(201, 168, 76, 0.15);
         }
         .hero .tagline {
             font-size: 1.1rem;
@@ -221,11 +308,13 @@
             text-decoration: none;
             display: inline-block;
             background: rgba(201, 168, 76, 0.02);
+            box-shadow: 0 0 20px rgba(201, 168, 76, 0);
         }
         .btn-primary:hover {
             background: #c9a84c;
             color: #0a0c0f;
-            box-shadow: 0 0 30px rgba(201, 168, 76, 0.1);
+            box-shadow: 0 0 40px rgba(201, 168, 76, 0.15);
+            transform: scale(1.02);
         }
         .btn-secondary {
             background: transparent;
@@ -246,8 +335,8 @@
         .btn-secondary:hover {
             border-color: #5f7b89;
             color: #e8e0d5;
+            box-shadow: 0 0 30px rgba(90, 120, 150, 0.05);
         }
-
         .hero-statue {
             text-align: right;
             font-size: 5rem;
@@ -262,6 +351,7 @@
             color: #c9a84c;
             opacity: 0.15;
             margin-bottom: 0.5rem;
+            text-shadow: 0 0 60px rgba(201, 168, 76, 0.05);
         }
         .hero-statue .statue-label {
             font-family: 'Courier Prime', monospace;
@@ -296,6 +386,7 @@
             color: #c9a84c;
             display: block;
             line-height: 1.2;
+            text-shadow: 0 0 20px rgba(201, 168, 76, 0.1);
         }
         .stat-label {
             font-family: 'Courier Prime', monospace;
@@ -322,7 +413,6 @@
             text-transform: uppercase;
             margin-top: 0.2rem;
         }
-
         .services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -334,12 +424,13 @@
             background: rgba(15, 18, 23, 0.4);
             transition: all 0.3s ease;
             position: relative;
+            backdrop-filter: blur(2px);
         }
         .service-card:hover {
             border-color: #c9a84c;
             background: rgba(201, 168, 76, 0.02);
             transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5), 0 0 40px rgba(201, 168, 76, 0.02);
         }
         .service-card .service-num {
             font-family: 'Courier Prime', monospace;
@@ -412,6 +503,7 @@
             background: rgba(201, 168, 76, 0.02);
             border: 1px solid #1a1f26;
             border-left-width: 4px;
+            box-shadow: 0 0 40px rgba(201, 168, 76, 0.02);
         }
         .partnership-box p {
             color: #b9b3a8;
@@ -419,6 +511,92 @@
         }
         .partnership-box strong {
             color: #e8e0d5;
+        }
+
+        /* ---------- DREAMSCAPE – BEYOND IMAGINATION ---------- */
+        .dreamscape-section {
+            margin: 2rem 0 1rem 0;
+            border-top: 1px solid #1a1f26;
+            padding-top: 2rem;
+        }
+        .dreamscape-wrapper {
+            position: relative;
+            border: 1px solid #2a2e36;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #050608;
+            box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.9), 0 0 60px rgba(201, 168, 76, 0.03);
+            aspect-ratio: 16 / 7;
+            min-height: 280px;
+            width: 100%;
+        }
+        #dreamCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: default;
+        }
+        .dreamscape-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 0.8rem 1.5rem;
+            background: linear-gradient(0deg, rgba(5, 6, 8, 0.88) 0%, transparent 100%);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            pointer-events: none;
+        }
+        .dreamscape-overlay>* {
+            pointer-events: auto;
+        }
+        .dream-mode-indicator {
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #8e9bab;
+        }
+        .dream-mode-indicator span {
+            color: #c9a84c;
+        }
+        .dream-controls {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .dream-btn {
+            background: rgba(15, 18, 23, 0.7);
+            border: 1px solid #2a2e36;
+            color: #8e9bab;
+            padding: 0.25rem 0.9rem;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border-radius: 3px;
+            backdrop-filter: blur(4px);
+            user-select: none;
+        }
+        .dream-btn:hover {
+            border-color: #c9a84c;
+            color: #e8e0d5;
+            background: rgba(201, 168, 76, 0.08);
+        }
+        .dream-btn.active {
+            border-color: #c9a84c;
+            color: #c9a84c;
+            background: rgba(201, 168, 76, 0.12);
+            box-shadow: 0 0 20px rgba(201, 168, 76, 0.05);
+        }
+        .dream-btn i {
+            margin-right: 0.3rem;
+            font-size: 0.7rem;
         }
 
         /* ---------- TERMINAL ---------- */
@@ -431,8 +609,9 @@
             background: #0a0c0f;
             border: 1px solid #2a2e36;
             padding: 1.2rem 1.5rem;
-            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.8), 0 0 60px rgba(201, 168, 76, 0.02);
             position: relative;
+            border-radius: 4px;
         }
         .terminal-window .term-bar {
             display: flex;
@@ -456,7 +635,6 @@
         .term-dot.green {
             background: #2a4f3a;
         }
-
         .output-area {
             max-height: 320px;
             overflow-y: auto;
@@ -477,7 +655,6 @@
             background: #c9a84c;
             border-radius: 4px;
         }
-
         .input-line {
             display: flex;
             align-items: center;
@@ -515,7 +692,6 @@
                 opacity: 0;
             }
         }
-
         .line {
             margin-bottom: 0.2rem;
         }
@@ -531,6 +707,7 @@
         }
         .highlight {
             color: #c9a84c;
+            text-shadow: 0 0 10px rgba(201, 168, 76, 0.1);
         }
         .highlight-blue {
             color: #5f7b89;
@@ -547,7 +724,10 @@
         .cmd-text {
             color: #e8e0d5;
         }
-
+        .registry-key {
+            color: #6fc3df;
+            font-size: 0.75rem;
+        }
         .progress-container {
             padding-left: 1.5rem;
             margin: 0.5rem 0;
@@ -574,36 +754,7 @@
             margin-left: 0.5rem;
         }
 
-        .relax-monitor {
-            background: #0a0c0f;
-            border: 1px solid #1a1f26;
-            border-radius: 4px;
-            padding: 1rem;
-            margin: 0.5rem 0;
-            width: 100%;
-            max-width: 350px;
-            aspect-ratio: 16 / 9;
-            position: relative;
-            overflow: hidden;
-        }
-        .ball {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, #c9a84c, #7a6b2a);
-            box-shadow: 0 0 25px rgba(201, 168, 76, 0.3);
-            will-change: transform, left, top;
-        }
-        .relax-sub {
-            text-align: center;
-            color: #3e5270;
-            font-size: 0.6rem;
-            letter-spacing: 4px;
-            margin-top: 0.2rem;
-        }
-
-        /* ---------- COMMAND LEGEND (outside console) ---------- */
+        /* ---------- COMMAND LEGEND (reduced) ---------- */
         .command-legend {
             margin: 1.2rem 0 0.5rem 0;
             border: 1px solid #1a1f26;
@@ -613,6 +764,7 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 0.4rem 1.2rem;
             border-radius: 4px;
+            backdrop-filter: blur(4px);
         }
         .command-legend .legend-title {
             grid-column: 1 / -1;
@@ -685,7 +837,6 @@
         .contact-detail span {
             color: #b9b3a8;
         }
-
         .footer {
             margin-top: 3rem;
             padding-top: 1.5rem;
@@ -750,8 +901,12 @@
             }
             .header {
                 flex-direction: column;
-                gap: 1rem;
                 align-items: flex-start;
+                gap: 1rem;
+            }
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
             }
             .nav-links {
                 flex-wrap: wrap;
@@ -771,6 +926,19 @@
             .cmd-entry .cmd-name {
                 min-width: 60px;
             }
+            .dreamscape-wrapper {
+                aspect-ratio: 16 / 10;
+                min-height: 200px;
+            }
+            .dreamscape-overlay {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.4rem;
+                padding: 0.6rem 1rem;
+            }
+            .dream-controls {
+                justify-content: center;
+            }
         }
         @media (max-width: 500px) {
             .logo-text {
@@ -782,10 +950,27 @@
             .command-legend {
                 grid-template-columns: 1fr;
             }
+            .header-right {
+                flex-wrap: wrap;
+                gap: 0.8rem;
+            }
+            .lang-switcher select {
+                font-size: 0.6rem;
+                padding: 0.3rem 1.6rem 0.3rem 0.6rem;
+                min-width: 60px;
+            }
+            .dream-btn {
+                font-size: 0.5rem;
+                padding: 0.2rem 0.6rem;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- ===== MATRIX BACKGROUND ===== -->
+    <div class="matrix-bg" id="matrixBg"></div>
+
     <div class="container">
         <div class="frame">
 
@@ -793,112 +978,140 @@
             <header class="header">
                 <div class="logo">
                     <span class="logo-text">Sigma<span class="gold-accent">Performance</span></span>
-                    <span class="logo-sub">Professional PC Optimization</span>
+                    <span class="logo-sub" data-i18n="logo.sub">Professional PC Optimization</span>
                 </div>
-                <nav class="nav-links">
-                    <a href="#services">Services</a>
-                    <a href="#tools">Tools &amp; Languages</a>
-                    <a href="#terminal">Console</a>
-                    <a href="#contact">Contact</a>
-                </nav>
+                <div class="header-right">
+                    <nav class="nav-links">
+                        <a href="#services" data-i18n="nav.services">Services</a>
+                        <a href="#tools" data-i18n="nav.tools">Tools &amp; Languages</a>
+                        <a href="#dreamscape" data-i18n="nav.dream">Dreamscape</a>
+                        <a href="#terminal" data-i18n="nav.console">Console</a>
+                        <a href="#contact" data-i18n="nav.contact">Contact</a>
+                    </nav>
+                    <div class="lang-switcher">
+                        <select id="langSelect" aria-label="Language switcher">
+                            <option value="en">EN</option>
+                            <option value="fr">FR</option>
+                            <option value="es">ES</option>
+                        </select>
+                    </div>
+                </div>
             </header>
 
             <!-- ===== HERO ===== -->
             <section class="hero">
                 <div>
-                    <h1>Make your PC <br /><span class="highlight">faster</span></h1>
-                    <div class="tagline">We optimize Windows for gaming, work, and everyday use.</div>
+                    <h1 data-i18n="hero.title">Make your PC <span class="highlight">faster</span></h1>
+                    <div class="tagline" data-i18n="hero.tagline">We optimize Windows for gaming, work, and everyday use.</div>
                     <div class="btn-group">
-                        <a href="#contact" class="btn-primary"><i class="fas fa-pen-fancy"></i> Get a free quote</a>
-                        <a href="#services" class="btn-secondary"><i class="fas fa-compass"></i> See services</a>
+                        <a href="#contact" class="btn-primary" data-i18n="hero.btn.quote"><i class="fas fa-pen-fancy"></i> Get a free quote</a>
+                        <a href="#services" class="btn-secondary" data-i18n="hero.btn.services"><i class="fas fa-compass"></i> See services</a>
                     </div>
                 </div>
                 <div class="hero-statue">
                     <i class="fas fa-microchip"></i>
-                    <span class="statue-label">⚡ Performance</span>
+                    <span class="statue-label" data-i18n="hero.statue">⚡ Performance</span>
                 </div>
             </section>
 
             <!-- ===== STATS ===== -->
             <div class="stats-grid">
-                <div class="stat-item"><span class="stat-number">17</span><span class="stat-label">PCs optimized</span></div>
-                <div class="stat-item"><span class="stat-number">4.7</span><span class="stat-label">Average rating</span></div>
-                <div class="stat-item"><span class="stat-number">24h</span><span class="stat-label">Fast turnaround</span></div>
-                <div class="stat-item"><span class="stat-number">∞</span><span class="stat-label">Satisfaction guaranteed</span></div>
+                <div class="stat-item"><span class="stat-number">17</span><span class="stat-label" data-i18n="stats.optimized">PCs optimized</span></div>
+                <div class="stat-item"><span class="stat-number">4.7</span><span class="stat-label" data-i18n="stats.rating">Average rating</span></div>
+                <div class="stat-item"><span class="stat-number">24h</span><span class="stat-label" data-i18n="stats.turnaround">Fast turnaround</span></div>
+                <div class="stat-item"><span class="stat-number">∞</span><span class="stat-label" data-i18n="stats.guarantee">Satisfaction guaranteed</span></div>
             </div>
 
             <!-- ===== SERVICES ===== -->
             <div id="services">
                 <div class="section-head">
-                    <h2>Our <span class="gold-accent">Services</span></h2>
-                    <div class="sub">— what we do —</div>
+                    <h2 data-i18n="services.title">Our <span class="gold-accent">Services</span></h2>
+                    <div class="sub" data-i18n="services.sub">— what we do —</div>
                 </div>
                 <div class="services-grid">
                     <div class="service-card">
                         <span class="service-num">[1]</span>
                         <i class="fas fa-tachometer-alt icon"></i>
-                        <h3>Performance Scripting</h3>
-                        <p>Windows performance optimization using custom scripts.</p>
+                        <h3 data-i18n="service.1.title">Performance Scripting</h3>
+                        <p data-i18n="service.1.desc">Windows performance optimization using custom scripts.</p>
                     </div>
                     <div class="service-card">
                         <span class="service-num">[2]</span>
                         <i class="fas fa-window-restore icon"></i>
-                        <h3>Clean Installation</h3>
-                        <p>Clean installation with answer files &amp; USB media.</p>
+                        <h3 data-i18n="service.2.title">Clean Installation</h3>
+                        <p data-i18n="service.2.desc">Clean installation with answer files &amp; USB media.</p>
                     </div>
                     <div class="service-card">
                         <span class="service-num">[3]</span>
                         <i class="fas fa-microchip icon"></i>
-                        <h3>Driver Management</h3>
-                        <p>Online/offline driver installation &amp; configuration.</p>
+                        <h3 data-i18n="service.3.title">Driver Management</h3>
+                        <p data-i18n="service.3.desc">Online/offline driver installation &amp; configuration.</p>
                     </div>
                     <div class="service-card">
                         <span class="service-num">[4]</span>
                         <i class="fas fa-shield-alt icon"></i>
-                        <h3>Remove Bloatware</h3>
-                        <p>Safe bloatware removal &amp; system cleanup.</p>
+                        <h3 data-i18n="service.4.title">Remove Bloatware</h3>
+                        <p data-i18n="service.4.desc">Safe bloatware removal &amp; system cleanup.</p>
                     </div>
                     <div class="service-card">
                         <span class="service-num">[5]</span>
                         <i class="fas fa-cog icon"></i>
-                        <h3>Workload Tuning</h3>
-                        <p>Workload‑specific system optimization.</p>
+                        <h3 data-i18n="service.5.title">Workload Tuning</h3>
+                        <p data-i18n="service.5.desc">Workload‑specific system optimization.</p>
                     </div>
                     <div class="service-card">
                         <span class="service-num">[6]</span>
                         <i class="fas fa-gamepad icon"></i>
-                        <h3>Reduce Input Lag</h3>
-                        <p>Controller latency calibration &amp; polling rate tuning.</p>
+                        <h3 data-i18n="service.6.title">Reduce Input Lag</h3>
+                        <p data-i18n="service.6.desc">Controller latency calibration &amp; polling rate tuning.</p>
                     </div>
                     <div class="service-card">
                         <span class="service-num">[7]</span>
                         <i class="fas fa-tools icon"></i>
-                        <h3>Repair &amp; Recovery</h3>
-                        <p>Troubleshooting, repair, and recovery.</p>
+                        <h3 data-i18n="service.7.title">Repair &amp; Recovery</h3>
+                        <p data-i18n="service.7.desc">Troubleshooting, repair, and recovery.</p>
                     </div>
                     <div class="service-card">
                         <span class="service-num">[8]</span>
                         <i class="fas fa-thermometer-half icon"></i>
-                        <h3>Reduce Overheating</h3>
-                        <p>Overheating reduction via power‑plan scripts.</p>
+                        <h3 data-i18n="service.8.title">Reduce Overheating</h3>
+                        <p data-i18n="service.8.desc">Overheating reduction via power‑plan scripts.</p>
                     </div>
                     <div class="service-card">
                         <span class="service-num">[9]</span>
                         <i class="fas fa-cloud-upload-alt icon"></i>
-                        <h3>Remote Support</h3>
-                        <p>Remote support via AnyDesk.</p>
+                        <h3 data-i18n="service.9.title">Remote Support</h3>
+                        <p data-i18n="service.9.desc">Remote support via AnyDesk.</p>
                     </div>
                     <div class="service-card">
                         <span class="service-num">[10]</span>
                         <i class="fas fa-hdd icon"></i>
-                        <h3>Drive Cleanup</h3>
-                        <p>Drive cleanup &amp; maintenance (PowerShell/CMD).</p>
+                        <h3 data-i18n="service.10.title">Drive Cleanup</h3>
+                        <p data-i18n="service.10.desc">Drive cleanup &amp; maintenance (PowerShell/CMD).</p>
                     </div>
                     <div class="service-card">
                         <span class="service-num">[11]</span>
                         <i class="fas fa-sync-alt icon"></i>
-                        <h3>System Health</h3>
-                        <p>Windows updates &amp; system health monitoring.</p>
+                        <h3 data-i18n="service.11.title">System Health</h3>
+                        <p data-i18n="service.11.desc">Windows updates &amp; system health monitoring.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">[12]</span>
+                        <i class="fas fa-brain icon"></i>
+                        <h3 data-i18n="service.12.title">Kernel-Level Tuning</h3>
+                        <p data-i18n="service.12.desc">Deep kernel optimization, context switching, and interrupt priority.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">[13]</span>
+                        <i class="fas fa-compress-alt icon"></i>
+                        <h3 data-i18n="service.13.title">Memory Compression</h3>
+                        <p data-i18n="service.13.desc">Advanced memory management &amp; compression algorithms.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">[14]</span>
+                        <i class="fas fa-network-wired icon"></i>
+                        <h3 data-i18n="service.14.title">Network Stack Acceleration</h3>
+                        <p data-i18n="service.14.desc">TCP/IP optimization, MTU tuning, and latency reduction.</p>
                     </div>
                 </div>
             </div>
@@ -908,20 +1121,22 @@
             <!-- ===== TOOLS & LANGUAGES ===== -->
             <div id="tools">
                 <div class="section-head">
-                    <h2><span class="gold-accent">Tools</span> &amp; Languages</h2>
-                    <div class="sub">— what we use —</div>
+                    <h2 data-i18n="tools.title"><span class="gold-accent">Tools</span> &amp; Languages</h2>
+                    <div class="sub" data-i18n="tools.sub">— what we use —</div>
                 </div>
                 <div class="specs-grid">
                     <div>
-                        <h3><i class="fas fa-code"></i> Languages</h3>
+                        <h3><i class="fas fa-code"></i> <span data-i18n="tools.languages">Languages</span></h3>
                         <div>
                             <span class="spec-item">Answer File</span>
                             <span class="spec-item">Batch</span>
                             <span class="spec-item">PowerShell</span>
+                            <span class="spec-item">C++</span>
+                            <span class="spec-item">Assembly</span>
                         </div>
                     </div>
                     <div>
-                        <h3><i class="fas fa-wrench"></i> Tools</h3>
+                        <h3><i class="fas fa-wrench"></i> <span data-i18n="tools.tools">Tools</span></h3>
                         <div>
                             <span class="spec-item">HIDUSBF</span>
                             <span class="spec-item">SDIO</span>
@@ -933,6 +1148,8 @@
                             <span class="spec-item">BCUninstaller</span>
                             <span class="spec-item">Process Explorer</span>
                             <span class="spec-item">AnyDesk</span>
+                            <span class="spec-item">WinDbg</span>
+                            <span class="spec-item">Sysinternals</span>
                         </div>
                     </div>
                 </div>
@@ -941,10 +1158,35 @@
             <!-- ===== PARTNERSHIP ===== -->
             <div class="partnership-box">
                 <p><i class="fas fa-handshake" style="color:#c9a84c; margin-right: 1rem;"></i>
-                    <strong>Partnership with repair shops &amp; PC builders:</strong><br />
-                    We help repair shops &amp; PC builders deliver professional Windows optimization using <span class="gold-accent">Answer files, Batch, PowerShell, and tuning tools</span>.
-                    Extend hardware repairs with software performance — stable, repeatable, and fast.
+                    <strong data-i18n="partnership.title">Partnership with repair shops &amp; PC builders:</strong><br />
+                    <span data-i18n="partnership.text">We help repair shops &amp; PC builders deliver professional Windows optimization using <span class="gold-accent">Answer files, Batch, PowerShell, and tuning tools</span>. Extend hardware repairs with software performance — stable, repeatable, and fast.</span>
                 </p>
+            </div>
+
+            <div class="divider-line"></div>
+
+            <!-- ===== DREAMSCAPE – BEYOND IMAGINATION ===== -->
+            <div id="dreamscape" class="dreamscape-section">
+                <div class="section-head">
+                    <h2 data-i18n="dream.title">Dreamscape <span class="gold-accent">· Beyond Imagination</span></h2>
+                    <div class="sub" data-i18n="dream.sub">— unthinkable · surreal · relaxing —</div>
+                </div>
+                <div class="dreamscape-wrapper">
+                    <canvas id="dreamCanvas"></canvas>
+                    <div class="dreamscape-overlay">
+                        <div class="dream-mode-indicator">
+                            <i class="fas fa-eye" style="color:#c9a84c; margin-right:0.4rem;"></i>
+                            <span data-i18n="dream.mode">Mode:</span>
+                            <span id="dreamModeLabel">Mandala</span>
+                        </div>
+                        <div class="dream-controls">
+                            <button class="dream-btn active" data-mode="mandala" data-i18n="dream.btn.mandala"><i class="fas fa-circle"></i> Mandala</button>
+                            <button class="dream-btn" data-mode="aurora" data-i18n="dream.btn.aurora"><i class="fas fa-water"></i> Aurora</button>
+                            <button class="dream-btn" data-mode="tesseract" data-i18n="dream.btn.tesseract"><i class="fas fa-cube"></i> Tesseract</button>
+                            <button class="dream-btn" data-mode="fractal" data-i18n="dream.btn.fractal"><i class="fas fa-leaf"></i> Fractal</button>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="divider-line"></div>
@@ -952,35 +1194,32 @@
             <!-- ===== INTERACTIVE TERMINAL ===== -->
             <div id="terminal" class="terminal-section">
                 <div class="section-head">
-                    <h2>The <span class="gold-accent">Console</span></h2>
-                    <div class="sub">— interactive command line —</div>
+                    <h2 data-i18n="terminal.title">The <span class="gold-accent">Console</span></h2>
+                    <div class="sub" data-i18n="terminal.sub">— interactive command line —</div>
                 </div>
                 <div class="terminal-window">
                     <div class="term-bar">
                         <span class="term-dot red"></span>
                         <span class="term-dot yellow"></span>
                         <span class="term-dot green"></span>
-                        <span style="color:#5f7389; font-size:0.7rem; margin-left:0.5rem;">SigmaPerformance · Terminal v2.0</span>
+                        <span style="color:#5f7389; font-size:0.7rem; margin-left:0.5rem;" data-i18n="terminal.bar">SigmaPerformance · Terminal v3.0</span>
                     </div>
-                    <div class="output-area" id="outputArea">
-                        <!-- Empty by default – commands appear here when typed -->
-                    </div>
+                    <div class="output-area" id="outputArea"></div>
                     <div class="input-line">
                         <span class="input-prompt">C:\sigma&gt;</span>
-                        <input type="text" id="cmdInput" autofocus spellcheck="false" autocomplete="off" />
+                        <input type="text" id="cmdInput" spellcheck="false" autocomplete="off" />
                         <span class="cursor-blink"></span>
                     </div>
                 </div>
 
-                <!-- ===== COMMAND LEGEND – OUTSIDE CONSOLE ===== -->
+                <!-- ===== COMMAND LEGEND (reduced) ===== -->
                 <div class="command-legend">
-                    <div class="legend-title"><i class="fas fa-terminal" style="margin-right:0.5rem; color:#c9a84c;"></i> available commands</div>
-                    <div class="cmd-entry"><span class="cmd-name">sigma perf</span><span class="cmd-desc"><i class="fas fa-arrow-right"></i> run optimization with progress</span></div>
-                    <div class="cmd-entry"><span class="cmd-name">services</span><span class="cmd-desc"><i class="fas fa-arrow-right"></i> top 3 recommended services</span></div>
-                    <div class="cmd-entry"><span class="cmd-name">languages</span><span class="cmd-desc"><i class="fas fa-arrow-right"></i> scripting pipeline overview</span></div>
-                    <div class="cmd-entry"><span class="cmd-name">tools</span><span class="cmd-desc"><i class="fas fa-arrow-right"></i> detailed tool breakdown</span></div>
-                    <div class="cmd-entry"><span class="cmd-name">relax</span><span class="cmd-desc"><i class="fas fa-arrow-right"></i> bouncing ball animation</span></div>
-                    <div class="cmd-entry"><span class="cmd-name">clear</span><span class="cmd-desc"><i class="fas fa-arrow-right"></i> clear console output</span></div>
+                    <div class="legend-title" data-i18n="terminal.legend.title"><i class="fas fa-terminal" style="margin-right:0.5rem; color:#c9a84c;"></i> available commands</div>
+                    <div class="cmd-entry"><span class="cmd-name">sigma perf</span><span class="cmd-desc" data-i18n="terminal.cmd.perf"><i class="fas fa-arrow-right"></i> run optimization with progress</span></div>
+                    <div class="cmd-entry"><span class="cmd-name">services</span><span class="cmd-desc" data-i18n="terminal.cmd.services"><i class="fas fa-arrow-right"></i> top 3 recommended services</span></div>
+                    <div class="cmd-entry"><span class="cmd-name">languages</span><span class="cmd-desc" data-i18n="terminal.cmd.languages"><i class="fas fa-arrow-right"></i> scripting pipeline overview</span></div>
+                    <div class="cmd-entry"><span class="cmd-name">tools</span><span class="cmd-desc" data-i18n="terminal.cmd.tools"><i class="fas fa-arrow-right"></i> detailed tool breakdown</span></div>
+                    <div class="cmd-entry"><span class="cmd-name">clear</span><span class="cmd-desc" data-i18n="terminal.cmd.clear"><i class="fas fa-arrow-right"></i> clear console output</span></div>
                 </div>
             </div>
 
@@ -989,8 +1228,8 @@
             <!-- ===== CONTACT ===== -->
             <div id="contact">
                 <div class="section-head">
-                    <h2>Contact <span class="gold-accent">Us</span></h2>
-                    <div class="sub">— we respond within 12 hours —</div>
+                    <h2 data-i18n="contact.title">Contact <span class="gold-accent">Us</span></h2>
+                    <div class="sub" data-i18n="contact.sub">— we respond within 12 hours —</div>
                 </div>
                 <div class="contact-area">
                     <div class="contact-detail">
@@ -1003,15 +1242,15 @@
                     </div>
                     <div class="contact-detail">
                         <i class="fas fa-map-pin"></i>
-                        <span>Ottawa, ON · Global Reach</span>
+                        <span data-i18n="contact.location">Ottawa, ON · Global Reach</span>
                     </div>
                 </div>
             </div>
 
             <!-- ===== FOOTER ===== -->
             <div class="footer">
-                <span>&copy; 2026 SigmaPerformance · Professional PC Optimization</span>
-                <span><a href="mailto:sigmaperformance.tech@gmail.com?subject=PC%20Optimization%20Inquiry">Email us</a></span>
+                <span data-i18n="footer.copyright">&copy; 2026 SigmaPerformance · Professional PC Optimization</span>
+                <span><a href="mailto:sigmaperformance.tech@gmail.com?subject=PC%20Optimization%20Inquiry" data-i18n="footer.email">Email us</a></span>
             </div>
 
         </div>
@@ -1020,11 +1259,687 @@
     <!-- end container -->
 
     <script>
+        // ================================================================
+        //  MATRIX BACKGROUND
+        // ================================================================
+        (function initMatrix() {
+            const container = document.getElementById('matrixBg');
+            const chars = '01';
+            for (let i = 0; i < 30; i++) {
+                const span = document.createElement('span');
+                span.textContent = chars[Math.floor(Math.random() * chars.length)];
+                span.style.left = Math.random() * 100 + '%';
+                span.style.fontSize = (Math.random() * 1.5 + 0.8) + 'rem';
+                span.style.animationDuration = (Math.random() * 10 + 8) + 's';
+                span.style.animationDelay = (Math.random() * 15) + 's';
+                span.style.opacity = Math.random() * 0.5 + 0.1;
+                container.appendChild(span);
+            }
+        })();
+
+        // ================================================================
+        //  I18N – ONLY EN, FR, ES (DE REMOVED)
+        // ================================================================
+        const TRANSLATIONS = {
+            en: {
+                'logo.sub': 'Professional PC Optimization',
+                'nav.services': 'Services',
+                'nav.tools': 'Tools & Languages',
+                'nav.dream': 'Dreamscape',
+                'nav.console': 'Console',
+                'nav.contact': 'Contact',
+                'hero.title': 'Make your PC <span class="highlight">faster</span>',
+                'hero.tagline': 'We optimize Windows for gaming, work, and everyday use.',
+                'hero.btn.quote': 'Get a free quote',
+                'hero.btn.services': 'See services',
+                'hero.statue': '⚡ Performance',
+                'stats.optimized': 'PCs optimized',
+                'stats.rating': 'Average rating',
+                'stats.turnaround': 'Fast turnaround',
+                'stats.guarantee': 'Satisfaction guaranteed',
+                'services.title': 'Our <span class="gold-accent">Services</span>',
+                'services.sub': '— what we do —',
+                'service.1.title': 'Performance Scripting',
+                'service.1.desc': 'Windows performance optimization using custom scripts.',
+                'service.2.title': 'Clean Installation',
+                'service.2.desc': 'Clean installation with answer files & USB media.',
+                'service.3.title': 'Driver Management',
+                'service.3.desc': 'Online/offline driver installation & configuration.',
+                'service.4.title': 'Remove Bloatware',
+                'service.4.desc': 'Safe bloatware removal & system cleanup.',
+                'service.5.title': 'Workload Tuning',
+                'service.5.desc': 'Workload‑specific system optimization.',
+                'service.6.title': 'Reduce Input Lag',
+                'service.6.desc': 'Controller latency calibration & polling rate tuning.',
+                'service.7.title': 'Repair & Recovery',
+                'service.7.desc': 'Troubleshooting, repair, and recovery.',
+                'service.8.title': 'Reduce Overheating',
+                'service.8.desc': 'Overheating reduction via power‑plan scripts.',
+                'service.9.title': 'Remote Support',
+                'service.9.desc': 'Remote support via AnyDesk.',
+                'service.10.title': 'Drive Cleanup',
+                'service.10.desc': 'Drive cleanup & maintenance (PowerShell/CMD).',
+                'service.11.title': 'System Health',
+                'service.11.desc': 'Windows updates & system health monitoring.',
+                'service.12.title': 'Kernel-Level Tuning',
+                'service.12.desc': 'Deep kernel optimization, context switching, and interrupt priority.',
+                'service.13.title': 'Memory Compression',
+                'service.13.desc': 'Advanced memory management & compression algorithms.',
+                'service.14.title': 'Network Stack Acceleration',
+                'service.14.desc': 'TCP/IP optimization, MTU tuning, and latency reduction.',
+                'tools.title': '<span class="gold-accent">Tools</span> & Languages',
+                'tools.sub': '— what we use —',
+                'tools.languages': 'Languages',
+                'tools.tools': 'Tools',
+                'partnership.title': 'Partnership with repair shops & PC builders:',
+                'partnership.text': 'We help repair shops & PC builders deliver professional Windows optimization using <span class="gold-accent">Answer files, Batch, PowerShell, and tuning tools</span>. Extend hardware repairs with software performance — stable, repeatable, and fast.',
+                'dream.title': 'Dreamscape <span class="gold-accent">· Beyond Imagination</span>',
+                'dream.sub': '— unthinkable · surreal · relaxing —',
+                'dream.mode': 'Mode:',
+                'dream.btn.mandala': 'Mandala',
+                'dream.btn.aurora': 'Aurora',
+                'dream.btn.tesseract': 'Tesseract',
+                'dream.btn.fractal': 'Fractal',
+                'terminal.title': 'The <span class="gold-accent">Console</span>',
+                'terminal.sub': '— interactive command line —',
+                'terminal.bar': 'SigmaPerformance · Terminal v3.0',
+                'terminal.legend.title': 'available commands',
+                'terminal.cmd.perf': 'run optimization with progress',
+                'terminal.cmd.services': 'top 3 recommended services',
+                'terminal.cmd.languages': 'scripting pipeline overview',
+                'terminal.cmd.tools': 'detailed tool breakdown',
+                'terminal.cmd.clear': 'clear console output',
+                'contact.title': 'Contact <span class="gold-accent">Us</span>',
+                'contact.sub': '— we respond within 12 hours —',
+                'contact.location': 'Ottawa, ON · Global Reach',
+                'footer.copyright': '© 2026 SigmaPerformance · Professional PC Optimization',
+                'footer.email': 'Email us'
+            },
+            fr: {
+                'logo.sub': 'Optimisation PC professionnelle',
+                'nav.services': 'Services',
+                'nav.tools': 'Outils & langages',
+                'nav.dream': 'Dreamscape',
+                'nav.console': 'Console',
+                'nav.contact': 'Contact',
+                'hero.title': 'Rendez votre PC <span class="highlight">plus rapide</span>',
+                'hero.tagline': 'Nous optimisons Windows pour le gaming, le travail et le quotidien.',
+                'hero.btn.quote': 'Obtenez un devis gratuit',
+                'hero.btn.services': 'Découvrez nos services',
+                'hero.statue': '⚡ Performance',
+                'stats.optimized': 'PC optimisés',
+                'stats.rating': 'Note moyenne',
+                'stats.turnaround': 'Réponse rapide',
+                'stats.guarantee': 'Satisfaction garantie',
+                'services.title': 'Nos <span class="gold-accent">Services</span>',
+                'services.sub': '— ce que nous proposons —',
+                'service.1.title': 'Scripting de performance',
+                'service.1.desc': 'Optimisation des performances Windows via des scripts sur mesure.',
+                'service.2.title': 'Installation propre',
+                'service.2.desc': 'Installation nette avec fichiers de réponse et support USB.',
+                'service.3.title': 'Gestion des pilotes',
+                'service.3.desc': 'Installation et configuration des pilotes en ligne ou hors ligne.',
+                'service.4.title': 'Suppression des logiciels superflus',
+                'service.4.desc': 'Nettoyage sécurisé et suppression des bloatwares.',
+                'service.5.title': 'Ajustement des charges',
+                'service.5.desc': 'Optimisation système spécifique à vos charges de travail.',
+                'service.6.title': 'Réduction de la latence',
+                'service.6.desc': 'Calibration de la latence et réglage du polling rate.',
+                'service.7.title': 'Réparation & récupération',
+                'service.7.desc': 'Diagnostic, réparation et récupération de données.',
+                'service.8.title': 'Réduction de la surchauffe',
+                'service.8.desc': 'Réduction des températures via des scripts de gestion de l\'alimentation.',
+                'service.9.title': 'Support à distance',
+                'service.9.desc': 'Assistance à distance via AnyDesk.',
+                'service.10.title': 'Nettoyage de disque',
+                'service.10.desc': 'Nettoyage et maintenance du disque (PowerShell/CMD).',
+                'service.11.title': 'Santé du système',
+                'service.11.desc': 'Mises à jour et surveillance de la santé du système.',
+                'service.12.title': 'Optimisation du noyau',
+                'service.12.desc': 'Optimisation profonde du noyau, commutation de contexte et priorité des interruptions.',
+                'service.13.title': 'Compression mémoire',
+                'service.13.desc': 'Gestion avancée de la mémoire et algorithmes de compression.',
+                'service.14.title': 'Accélération réseau',
+                'service.14.desc': 'Optimisation TCP/IP, réglage MTU et réduction de la latence.',
+                'tools.title': '<span class="gold-accent">Outils</span> & langages',
+                'tools.sub': '— ce que nous utilisons —',
+                'tools.languages': 'Langages',
+                'tools.tools': 'Outils',
+                'partnership.title': 'Partenariat avec les ateliers de réparation et assembleurs PC :',
+                'partnership.text': 'Nous aidons les ateliers de réparation et les assembleurs à fournir une optimisation Windows professionnelle avec <span class="gold-accent">fichiers de réponse, Batch, PowerShell et outils de réglage</span>. Prolongez vos réparations matérielles avec des performances logicielles stables, reproductibles et rapides.',
+                'dream.title': 'Dreamscape <span class="gold-accent">· Au-delà de l\'imagination</span>',
+                'dream.sub': '— inconcevable · surréaliste · relaxant —',
+                'dream.mode': 'Mode :',
+                'dream.btn.mandala': 'Mandala',
+                'dream.btn.aurora': 'Aurore',
+                'dream.btn.tesseract': 'Tesseract',
+                'dream.btn.fractal': 'Fractale',
+                'terminal.title': 'La <span class="gold-accent">Console</span>',
+                'terminal.sub': '— ligne de commande interactive —',
+                'terminal.bar': 'SigmaPerformance · Terminal v3.0',
+                'terminal.legend.title': 'commandes disponibles',
+                'terminal.cmd.perf': 'lancer l\'optimisation avec progression',
+                'terminal.cmd.services': 'top 3 services recommandés',
+                'terminal.cmd.languages': 'aperçu de la pipeline de scripting',
+                'terminal.cmd.tools': 'détail des outils',
+                'terminal.cmd.clear': 'effacer la console',
+                'contact.title': 'Contactez-<span class="gold-accent">nous</span>',
+                'contact.sub': '— réponse sous 12 heures —',
+                'contact.location': 'Ottawa, ON · Portée mondiale',
+                'footer.copyright': '© 2026 SigmaPerformance · Optimisation PC professionnelle',
+                'footer.email': 'Nous écrire'
+            },
+            es: {
+                'logo.sub': 'Optimización profesional de PC',
+                'nav.services': 'Servicios',
+                'nav.tools': 'Herramientas & Idiomas',
+                'nav.dream': 'Dreamscape',
+                'nav.console': 'Consola',
+                'nav.contact': 'Contacto',
+                'hero.title': 'Haz tu PC <span class="highlight">más rápida</span>',
+                'hero.tagline': 'Optimizamos Windows para juegos, trabajo y uso diario.',
+                'hero.btn.quote': 'Obtén un presupuesto gratuito',
+                'hero.btn.services': 'Ver servicios',
+                'hero.statue': '⚡ Rendimiento',
+                'stats.optimized': 'PC optimizadas',
+                'stats.rating': 'Calificación promedio',
+                'stats.turnaround': 'Respuesta rápida',
+                'stats.guarantee': 'Satisfacción garantizada',
+                'services.title': 'Nuestros <span class="gold-accent">Servicios</span>',
+                'services.sub': '— lo que hacemos —',
+                'service.1.title': 'Scripting de rendimiento',
+                'service.1.desc': 'Optimización de rendimiento de Windows con scripts personalizados.',
+                'service.2.title': 'Instalación limpia',
+                'service.2.desc': 'Instalación limpia con archivos de respuesta y USB.',
+                'service.3.title': 'Gestión de controladores',
+                'service.3.desc': 'Instalación y configuración de controladores online/offline.',
+                'service.4.title': 'Eliminación de bloatware',
+                'service.4.desc': 'Eliminación segura de software innecesario y limpieza del sistema.',
+                'service.5.title': 'Ajuste de carga',
+                'service.5.desc': 'Optimización del sistema según la carga de trabajo.',
+                'service.6.title': 'Reducción de latencia',
+                'service.6.desc': 'Calibración de latencia y ajuste de polling rate.',
+                'service.7.title': 'Reparación & recuperación',
+                'service.7.desc': 'Solución de problemas, reparación y recuperación.',
+                'service.8.title': 'Reducción de sobrecalentamiento',
+                'service.8.desc': 'Reducción de temperatura mediante scripts de plan de energía.',
+                'service.9.title': 'Soporte remoto',
+                'service.9.desc': 'Asistencia remota a través de AnyDesk.',
+                'service.10.title': 'Limpieza de disco',
+                'service.10.desc': 'Limpieza y mantenimiento de disco (PowerShell/CMD).',
+                'service.11.title': 'Salud del sistema',
+                'service.11.desc': 'Actualizaciones y monitoreo de la salud del sistema.',
+                'service.12.title': 'Ajuste a nivel de kernel',
+                'service.12.desc': 'Optimización profunda del kernel, cambio de contexto y prioridad de interrupciones.',
+                'service.13.title': 'Compresión de memoria',
+                'service.13.desc': 'Gestión avanzada de memoria y algoritmos de compresión.',
+                'service.14.title': 'Aceleración de red',
+                'service.14.desc': 'Optimización TCP/IP, ajuste de MTU y reducción de latencia.',
+                'tools.title': '<span class="gold-accent">Herramientas</span> & Idiomas',
+                'tools.sub': '— lo que usamos —',
+                'tools.languages': 'Idiomas',
+                'tools.tools': 'Herramientas',
+                'partnership.title': 'Asociación con talleres de reparación y ensambladores de PC:',
+                'partnership.text': 'Ayudamos a talleres y ensambladores a ofrecer optimización profesional de Windows con <span class="gold-accent">archivos de respuesta, Batch, PowerShell y herramientas de ajuste</span>. Extienda sus reparaciones de hardware con rendimiento de software estable, repetible y rápido.',
+                'dream.title': 'Dreamscape <span class="gold-accent">· Más allá de la imaginación</span>',
+                'dream.sub': '— inconcebible · surrealista · relajante —',
+                'dream.mode': 'Modo:',
+                'dream.btn.mandala': 'Mandala',
+                'dream.btn.aurora': 'Aurora',
+                'dream.btn.tesseract': 'Teseracto',
+                'dream.btn.fractal': 'Fractal',
+                'terminal.title': 'La <span class="gold-accent">Consola</span>',
+                'terminal.sub': '— línea de comandos interactiva —',
+                'terminal.bar': 'SigmaPerformance · Terminal v3.0',
+                'terminal.legend.title': 'comandos disponibles',
+                'terminal.cmd.perf': 'ejecutar optimización con progreso',
+                'terminal.cmd.services': 'top 3 servicios recomendados',
+                'terminal.cmd.languages': 'resumen de la pipeline de scripting',
+                'terminal.cmd.tools': 'detalle de herramientas',
+                'terminal.cmd.clear': 'limpiar consola',
+                'contact.title': 'Contácte-<span class="gold-accent">nos</span>',
+                'contact.sub': '— respondemos en 12 horas —',
+                'contact.location': 'Ottawa, ON · Alcance global',
+                'footer.copyright': '© 2026 SigmaPerformance · Optimización profesional de PC',
+                'footer.email': 'Envíanos un correo'
+            }
+        };
+
+        // ================================================================
+        //  I18N – ENGINE
+        // ================================================================
+        let currentLang = 'en';
+
+        function getTranslation(key) {
+            const langData = TRANSLATIONS[currentLang] || TRANSLATIONS.en;
+            return langData[key] || key;
+        }
+
+        function applyTranslations() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const raw = getTranslation(key);
+                el.innerHTML = raw.includes('<') ? raw : raw;
+            });
+        }
+
+        function setLanguage(lang) {
+            if (lang === currentLang) return;
+            if (TRANSLATIONS[lang]) {
+                currentLang = lang;
+                applyTranslations();
+                document.getElementById('langSelect').value = lang;
+            }
+        }
+
+        // Language switcher – no focus on input to avoid scrolling
+        document.getElementById('langSelect').addEventListener('change', function() {
+            setLanguage(this.value);
+            // Do NOT focus the command input – keeps page from scrolling to console
+        });
+
+        applyTranslations();
+
+        // ================================================================
+        //  DREAMSCAPE – BEYOND IMAGINATION (no nebula)
+        // ================================================================
+        (function() {
+            const canvas = document.getElementById('dreamCanvas');
+            const ctx = canvas.getContext('2d');
+            let W, H, dpr = 1;
+            let mode = 'mandala';
+            let time = 0;
+            let animId = null;
+            let stars = [];
+            let frameCount = 0;
+
+            // ---- resize ----
+            function resize() {
+                const rect = canvas.parentElement.getBoundingClientRect();
+                dpr = window.devicePixelRatio || 1;
+                W = rect.width;
+                H = rect.height || Math.max(280, W * 0.4375);
+                canvas.width = W * dpr;
+                canvas.height = H * dpr;
+                canvas.style.width = W + 'px';
+                canvas.style.height = H + 'px';
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.scale(dpr, dpr);
+                initStars();
+            }
+
+            function initStars() {
+                stars = [];
+                for (let i = 0; i < 180; i++) {
+                    stars.push({
+                        x: Math.random() * W,
+                        y: Math.random() * H,
+                        r: Math.random() * 1.8 + 0.3,
+                        a: Math.random() * 0.6 + 0.2,
+                        speed: Math.random() * 0.005 + 0.002
+                    });
+                }
+            }
+
+            // ---- palettes (no nebula) ----
+            const palettes = {
+                mandala: { bg: [5, 6, 8], colors: [
+                        [201, 168, 76],
+                        [95, 123, 137],
+                        [111, 195, 223],
+                        [180, 140, 100],
+                        [140, 100, 180]
+                    ] },
+                aurora: { bg: [2, 5, 12], colors: [
+                        [80, 200, 255],
+                        [100, 255, 200],
+                        [200, 100, 255],
+                        [255, 200, 100],
+                        [50, 255, 150]
+                    ] },
+                tesseract: { bg: [2, 2, 6], colors: [
+                        [201, 168, 76],
+                        [70, 180, 255],
+                        [255, 100, 150],
+                        [100, 255, 220],
+                        [180, 120, 255]
+                    ] },
+                fractal: { bg: [4, 6, 10], colors: [
+                        [60, 200, 180],
+                        [200, 160, 60],
+                        [160, 100, 200],
+                        [60, 180, 220],
+                        [220, 140, 80]
+                    ] }
+            };
+
+            function getPalette() { return palettes[mode] || palettes.mandala; }
+
+            function lerpColor(c1, c2, t) {
+                return [c1[0] + (c2[0] - c1[0]) * t, c1[1] + (c2[1] - c1[1]) * t, c1[2] + (c2[2] - c1[2]) * t];
+            }
+
+            // ---- render modes (no nebula) ----
+            function renderMandala(t) {
+                const pal = getPalette();
+                const cx = W / 2,
+                    cy = H / 2;
+                const baseR = Math.min(W, H) * 0.32;
+                const layers = 8,
+                    rotations = 6;
+                for (let l = 0; l < layers; l++) {
+                    const r = baseR * (0.3 + 0.7 * (l / layers));
+                    const phase = t * 0.15 + l * 0.4;
+                    const alpha = 0.15 + 0.6 * (1 - l / layers);
+                    const idx = (l + Math.floor(t * 0.05)) % pal.colors.length;
+                    const c = pal.colors[idx];
+                    const nxt = pal.colors[(idx + 1) % pal.colors.length];
+                    const mix = (Math.sin(t * 0.1 + l) * 0.5 + 0.5);
+                    const [cr, cg, cb] = lerpColor(c, nxt, mix);
+                    ctx.beginPath();
+                    const pts = 60;
+                    for (let i = 0; i <= pts; i++) {
+                        const a = (i / pts) * Math.PI * 2 * rotations + phase;
+                        const petal = 1 + 0.5 * Math.sin(a * rotations + t * 0.2);
+                        const rr = r * (0.6 + 0.4 * petal);
+                        const x = cx + rr * Math.cos(a + t * 0.05);
+                        const y = cy + rr * Math.sin(a + t * 0.05);
+                        i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                    }
+                    ctx.closePath();
+                    ctx.fillStyle = `rgba(${cr|0},${cg|0},${cb|0},${alpha * 0.6})`;
+                    ctx.fill();
+                    ctx.strokeStyle = `rgba(${cr|0},${cg|0},${cb|0},${alpha * 0.3})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.stroke();
+                }
+                const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, baseR * 0.5);
+                const gc = pal.colors[Math.floor(t * 0.03) % pal.colors.length];
+                grad.addColorStop(0, `rgba(${gc[0]},${gc[1]},${gc[2]},0.15)`);
+                grad.addColorStop(1, `rgba(${gc[0]},${gc[1]},${gc[2]},0)`);
+                ctx.fillStyle = grad;
+                ctx.fillRect(cx - baseR * 0.5, cy - baseR * 0.5, baseR, baseR);
+                for (let i = 0; i < 30; i++) {
+                    const a = i * 1.2 + t * 0.3;
+                    const r2 = baseR * (0.2 + 0.6 * (0.5 + 0.5 * Math.sin(i + t * 0.1)));
+                    const x = cx + r2 * Math.cos(a);
+                    const y = cy + r2 * Math.sin(a);
+                    const ci = pal.colors[i % pal.colors.length];
+                    ctx.beginPath();
+                    ctx.arc(x, y, 1.5 + Math.sin(t * 0.5 + i) * 0.8, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${ci[0]},${ci[1]},${ci[2]},0.4)`;
+                    ctx.fill();
+                }
+            }
+
+            function renderAurora(t) {
+                const pal = getPalette();
+                const w = W,
+                    h = H;
+                for (let wv = 0; wv < 5; wv++) {
+                    const phase = wv * 0.8 + t * 0.06;
+                    const amp = 0.2 + 0.3 * (1 - wv / 5);
+                    const freq = 0.015 + 0.01 * wv;
+                    const yBase = h * (0.2 + 0.6 * (wv / 5));
+                    const alpha = 0.08 + 0.12 * (1 - wv / 5);
+                    const ci = pal.colors[wv % pal.colors.length];
+                    ctx.beginPath();
+                    for (let x = 0; x <= w; x += 2) {
+                        const y = yBase + Math.sin(x * freq + phase) * amp * h * 0.25 +
+                            Math.sin(x * freq * 0.5 + t * 0.04 + wv) * amp * h * 0.15;
+                        x === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+                    }
+                    ctx.lineTo(w, h);
+                    ctx.lineTo(0, h);
+                    ctx.closePath();
+                    const grad = ctx.createLinearGradient(0, yBase - h * 0.3, 0, yBase + h * 0.3);
+                    grad.addColorStop(0, `rgba(${ci[0]},${ci[1]},${ci[2]},${alpha * 0.3})`);
+                    grad.addColorStop(0.5, `rgba(${ci[0]},${ci[1]},${ci[2]},${alpha * 0.7})`);
+                    grad.addColorStop(1, `rgba(${ci[0]},${ci[1]},${ci[2]},${alpha * 0.1})`);
+                    ctx.fillStyle = grad;
+                    ctx.fill();
+                }
+                for (let i = 0; i < 50; i++) {
+                    const x = (i * 37 + t * 10) % w;
+                    const y = (i * 73 + t * 6 + Math.sin(i + t * 0.1) * 40) % h;
+                    const ci = pal.colors[i % pal.colors.length];
+                    ctx.beginPath();
+                    ctx.arc(x, y, 0.5 + Math.sin(t * 0.5 + i) * 0.5 + 0.3, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${ci[0]},${ci[1]},${ci[2]},${0.3 + 0.3 * Math.sin(t * 0.7 + i)})`;
+                    ctx.fill();
+                }
+            }
+
+            function renderTesseract(t) {
+                const pal = getPalette();
+                const cx = W / 2,
+                    cy = H / 2;
+                const size = Math.min(W, H) * 0.2;
+                const rotX = t * 0.08,
+                    rotY = t * 0.05,
+                    rotZ = t * 0.03;
+                const verts = [
+                    [-1, -1, -1],
+                    [1, -1, -1],
+                    [1, 1, -1],
+                    [-1, 1, -1],
+                    [-1, -1, 1],
+                    [1, -1, 1],
+                    [1, 1, 1],
+                    [-1, 1, 1]
+                ];
+                const edges = [
+                    [0, 1],
+                    [1, 2],
+                    [2, 3],
+                    [3, 0],
+                    [4, 5],
+                    [5, 6],
+                    [6, 7],
+                    [7, 4],
+                    [0, 4],
+                    [1, 5],
+                    [2, 6],
+                    [3, 7]
+                ];
+
+                function rot3(v, rx, ry, rz) {
+                    let [x, y, z] = v;
+                    let cos = Math.cos(rx),
+                        sin = Math.sin(rx);
+                    let ny = y * cos - z * sin,
+                        nz = y * sin + z * cos;
+                    y = ny;
+                    z = nz;
+                    cos = Math.cos(ry);
+                    sin = Math.sin(ry);
+                    let nx = x * cos + z * sin;
+                    nz = -x * sin + z * cos;
+                    x = nx;
+                    z = nz;
+                    cos = Math.cos(rz);
+                    sin = Math.sin(rz);
+                    nx = x * cos - y * sin;
+                    ny = x * sin + y * cos;
+                    x = nx;
+                    y = ny;
+                    return [x, y, z];
+                }
+                const proj = verts.map(v => {
+                    const [x, y, z] = rot3(v, rotX, rotY, rotZ);
+                    const s = 1 + z * 0.15;
+                    return { x: cx + x * size * s, y: cy + y * size * s, z, s };
+                });
+                edges.forEach(([i, j]) => {
+                    const p1 = proj[i],
+                        p2 = proj[j];
+                    const alpha = 0.3 + 0.5 * (0.5 + 0.5 * Math.sin(t * 0.1 + i + j));
+                    const ci = pal.colors[(i + j + Math.floor(t * 0.02)) % pal.colors.length];
+                    ctx.beginPath();
+                    ctx.moveTo(p1.x, p1.y);
+                    ctx.lineTo(p2.x, p2.y);
+                    ctx.strokeStyle = `rgba(${ci[0]},${ci[1]},${ci[2]},${alpha * 0.8})`;
+                    ctx.lineWidth = 1.2 + 0.6 * Math.sin(t * 0.2 + i + j);
+                    ctx.shadowColor = `rgba(${ci[0]},${ci[1]},${ci[2]},0.3)`;
+                    ctx.shadowBlur = 15;
+                    ctx.stroke();
+                });
+                ctx.shadowBlur = 0;
+                proj.forEach((p, idx) => {
+                    const ci = pal.colors[idx % pal.colors.length];
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, 2 + 1.5 * Math.sin(t * 0.1 + idx), 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${ci[0]},${ci[1]},${ci[2]},0.8)`;
+                    ctx.shadowColor = `rgba(${ci[0]},${ci[1]},${ci[2]},0.5)`;
+                    ctx.shadowBlur = 20;
+                    ctx.fill();
+                });
+                ctx.shadowBlur = 0;
+            }
+
+            function renderFractal(t) {
+                const pal = getPalette();
+                const cx = W / 2,
+                    cy = H / 2;
+                const depth = 7;
+                const len = Math.min(W, H) * 0.35;
+
+                function drawBranch(x, y, angle, length, d) {
+                    if (d > depth || length < 2) return;
+                    const ex = x + length * Math.cos(angle);
+                    const ey = y + length * Math.sin(angle);
+                    const alpha = 0.3 + 0.7 * (1 - d / depth);
+                    const ci = pal.colors[(d + Math.floor(t * 0.02)) % pal.colors.length];
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(ex, ey);
+                    ctx.strokeStyle = `rgba(${ci[0]},${ci[1]},${ci[2]},${alpha * 0.8})`;
+                    ctx.lineWidth = Math.max(0.5, (depth - d) * 0.8);
+                    ctx.shadowColor = `rgba(${ci[0]},${ci[1]},${ci[2]},0.1)`;
+                    ctx.shadowBlur = 8;
+                    ctx.stroke();
+                    ctx.shadowBlur = 0;
+                    const ba = 0.4 + 0.15 * Math.sin(t * 0.1 + d);
+                    const lf = 0.7 + 0.05 * Math.sin(t * 0.08 + d * 0.5);
+                    drawBranch(ex, ey, angle - ba, length * lf, d + 1);
+                    drawBranch(ex, ey, angle + ba, length * lf, d + 1);
+                }
+                const baseAngle = Math.PI / 2 + 0.1 * Math.sin(t * 0.04);
+                drawBranch(cx, cy, baseAngle, len, 0);
+                for (let i = 0; i < 40; i++) {
+                    const a = i * 1.7 + t * 0.05;
+                    const r = (0.2 + 0.3 * (0.5 + 0.5 * Math.sin(i + t * 0.1))) * len;
+                    const x = cx + r * Math.cos(a);
+                    const y = cy + r * Math.sin(a);
+                    const ci = pal.colors[i % pal.colors.length];
+                    ctx.beginPath();
+                    ctx.arc(x, y, 0.8 + 0.6 * Math.sin(t * 0.3 + i), 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(${ci[0]},${ci[1]},${ci[2]},0.3)`;
+                    ctx.fill();
+                }
+            }
+
+            // ---- main render loop ----
+            function render() {
+                ctx.setTransform(1, 0, 0, 1, 0, 0);
+                ctx.scale(dpr, dpr);
+
+                const pal = getPalette();
+                const [br, bg, bb] = pal.bg;
+
+                const bgGrad = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, Math.max(W, H) * 0.7);
+                bgGrad.addColorStop(0, `rgb(${br+8},${bg+8},${bb+12})`);
+                bgGrad.addColorStop(1, `rgb(${br},${bg},${bb})`);
+                ctx.fillStyle = bgGrad;
+                ctx.fillRect(0, 0, W, H);
+
+                stars.forEach(s => {
+                    const twinkle = 0.5 + 0.5 * Math.sin(time * s.speed * 30 + s.x);
+                    ctx.beginPath();
+                    ctx.arc(s.x, s.y, s.r * (0.6 + 0.4 * twinkle), 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(200,210,230,${s.a * twinkle})`;
+                    ctx.fill();
+                });
+
+                switch (mode) {
+                    case 'mandala':
+                        renderMandala(time);
+                        break;
+                    case 'aurora':
+                        renderAurora(time);
+                        break;
+                    case 'tesseract':
+                        renderTesseract(time);
+                        break;
+                    case 'fractal':
+                        renderFractal(time);
+                        break;
+                    default:
+                        renderMandala(time);
+                }
+
+                time += 0.016;
+                frameCount++;
+                animId = requestAnimationFrame(render);
+            }
+
+            // ---- mode switching ----
+            function setDreamMode(newMode) {
+                if (newMode === mode) return;
+                mode = newMode;
+                time = 0;
+                frameCount = 0;
+                document.querySelectorAll('.dream-btn').forEach(b => {
+                    b.classList.toggle('active', b.dataset.mode === mode);
+                });
+                const label = document.getElementById('dreamModeLabel');
+                const names = {
+                    mandala: 'Mandala',
+                    aurora: 'Aurora',
+                    tesseract: 'Tesseract',
+                    fractal: 'Fractal'
+                };
+                if (label) label.textContent = names[mode] || 'Mandala';
+            }
+
+            function getDreamMode() { return mode; }
+
+            // ---- init ----
+            function initDreamscape() {
+                resize();
+                window.addEventListener('resize', resize);
+                document.querySelectorAll('.dream-btn').forEach(btn => {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();  // prevent any default action
+                        setDreamMode(this.dataset.mode);
+                        // Do NOT focus the input to avoid scrolling
+                    });
+                });
+                if (animId) cancelAnimationFrame(animId);
+                time = 0;
+                render();
+            }
+
+            // expose
+            window.__dream = {
+                setMode: setDreamMode,
+                getMode: getDreamMode
+            };
+
+            if (document.readyState === 'complete') {
+                initDreamscape();
+            } else {
+                window.addEventListener('load', initDreamscape);
+            }
+
+        })();
+
+        // ================================================================
+        //  TERMINAL ENGINE – REDUCED COMMANDS (no auto-focus on load)
+        // ================================================================
         (function() {
             const outputArea = document.getElementById('outputArea');
             const cmdInput = document.getElementById('cmdInput');
-
-            // ---- The console starts empty - no welcome message ----
 
             function appendOutput(html, className = '') {
                 const div = document.createElement('div');
@@ -1043,103 +1958,32 @@
             }
 
             function clearInteractive() {
-                stopRelax();
                 outputArea.innerHTML = '';
             }
 
-            // ----- Relax Logic -----
-            let relaxInterval = null;
-            let relaxContainer = null;
-            let ballElement = null;
-            let deformTimeout = null;
-
-            function startRelax() {
-                clearInteractive();
-                const monitor = document.createElement('div');
-                monitor.className = 'relax-monitor';
-                outputArea.appendChild(monitor);
-
-                const ball = document.createElement('div');
-                ball.className = 'ball';
-                monitor.appendChild(ball);
-                ballElement = ball;
-                relaxContainer = monitor;
-
-                let x = 10,
-                    y = 10;
-                let dx = 1.8,
-                    dy = 1.4;
-
-                function applyDeform(scaleX, scaleY) {
-                    if (!ballElement) return;
-                    if (deformTimeout) clearTimeout(deformTimeout);
-                    ballElement.style.transform = `scale(${scaleX}, ${scaleY})`;
-                    deformTimeout = setTimeout(() => {
-                        if (ballElement) ballElement.style.transform = 'scale(1, 1)';
-                        deformTimeout = null;
-                    }, 150);
-                }
-
-                function moveBall() {
-                    if (!ballElement || !relaxContainer) return;
-                    const cw = relaxContainer.clientWidth;
-                    const ch = relaxContainer.clientHeight;
-                    const bs = ballElement.offsetWidth || 30;
-                    let px = (x / 100) * cw;
-                    let py = (y / 100) * ch;
-                    px += dx;
-                    py += dy;
-                    if (px <= 0) { px = 0;
-                        dx = -dx;
-                        applyDeform(0.7, 1.3); } else if (px >= cw - bs) { px = cw - bs;
-                        dx = -dx;
-                        applyDeform(0.7, 1.3); }
-                    if (py <= 0) { py = 0;
-                        dy = -dy;
-                        applyDeform(1.3, 0.7); } else if (py >= ch - bs) { py = ch - bs;
-                        dy = -dy;
-                        applyDeform(1.3, 0.7); }
-                    x = (px / cw) * 100;
-                    y = (py / ch) * 100;
-                    ballElement.style.left = x + '%';
-                    ballElement.style.top = y + '%';
-                }
-
-                if (relaxInterval) clearInterval(relaxInterval);
-                relaxInterval = setInterval(moveBall, 30);
-
-                const sub = document.createElement('div');
-                sub.className = 'relax-sub';
-                sub.textContent = '✦ relax ✦';
-                outputArea.appendChild(sub);
-                outputArea.scrollTop = outputArea.scrollHeight;
-            }
-
-            function stopRelax() {
-                if (relaxInterval) { clearInterval(relaxInterval);
-                    relaxInterval = null; }
-                if (deformTimeout) { clearTimeout(deformTimeout);
-                    deformTimeout = null; }
-                relaxContainer = null;
-                ballElement = null;
-            }
-
-            // ----- Optimization Animation -----
+            // ---- Optimization ----
             function runOptimization() {
-                stopRelax();
                 clearInteractive();
+                const msgs = {
+                    init: 'Initializing optimization engine...',
+                    scan: 'Scanning registry for performance bottlenecks...',
+                    apply: 'Applying advanced performance tweaks...',
+                    startup: 'Optimizing startup items and background services...',
+                    clean: 'Cleaning temporary files and system cache...',
+                    calibrate: 'Calibrating power plan for maximum efficiency...',
+                    done: 'Optimization complete! <span class="highlight">32%</span> performance improvement.'
+                };
                 const steps = [
-                    { msg: 'Initializing optimization engine...', delay: 300 },
-                    { msg: 'Scanning registry for performance bottlenecks...', delay: 400 },
-                    { msg: 'Applying advanced performance tweaks...', delay: 500 },
-                    { msg: 'Optimizing startup items and background services...', delay: 400 },
-                    { msg: 'Cleaning temporary files and system cache...', delay: 400 },
-                    { msg: 'Calibrating power plan for maximum efficiency...', delay: 400 },
-                    { msg: 'Optimization complete! <span class="highlight">32%</span> performance improvement.', delay: 300 }
+                    { msg: msgs.init, delay: 300 },
+                    { msg: msgs.scan, delay: 400 },
+                    { msg: msgs.apply, delay: 500 },
+                    { msg: msgs.startup, delay: 400 },
+                    { msg: msgs.clean, delay: 400 },
+                    { msg: msgs.calibrate, delay: 400 },
+                    { msg: msgs.done, delay: 300 }
                 ];
                 cmdInput.disabled = true;
                 cmdInput.style.opacity = '0.5';
-
                 let progress = 0;
                 const progressHtml = `
                 <div class="progress-container">
@@ -1152,14 +1996,14 @@
                 progDiv.innerHTML = progressHtml;
                 outputArea.appendChild(progDiv);
                 outputArea.scrollTop = outputArea.scrollHeight;
-
                 let stepIndex = 0;
                 const intervalId = setInterval(() => {
                     if (stepIndex < steps.length) {
                         const step = steps[stepIndex];
                         const msgDiv = document.createElement('div');
                         msgDiv.className = 'output';
-                        msgDiv.innerHTML = `<i class="fas fa-spinner fa-spin" style="color:#c9a84c;"></i> ${step.msg}`;
+                        msgDiv.innerHTML =
+                            `<i class="fas fa-spinner fa-spin" style="color:#c9a84c;"></i> ${step.msg}`;
                         outputArea.appendChild(msgDiv);
                         outputArea.scrollTop = outputArea.scrollHeight;
                         progress = Math.min(100, (stepIndex + 1) / steps.length * 100);
@@ -1172,7 +2016,7 @@
                         clearInterval(intervalId);
                         cmdInput.disabled = false;
                         cmdInput.style.opacity = '1';
-                        cmdInput.focus();
+                        // We don't focus automatically to avoid scrolling
                         const finalMsg = document.createElement('div');
                         finalMsg.className = 'output';
                         finalMsg.innerHTML =
@@ -1183,52 +2027,62 @@
                 }, 600);
             }
 
-            // ----- Process Commands -----
+            // ---- Handlers ----
+            function handleServices() {
+                appendOutput(`
+                <i class="fas fa-star" style="color:#c9a84c;"></i> <span class="highlight">Top 3 Services for Gamers & Power Users:</span><br>
+                <span style="padding-left:1.5rem; display:block;">
+                    <span class="highlight-cyan">[6] Controller latency optimization – Reduces input lag using HIDUSBF and polling rate tools. Essential for competitive gaming.</span><br>
+                    <span class="highlight-cyan">[8] Overheating reduction – Custom power plan scripts that lower CPU/GPU temps without losing performance.</span><br>
+                    <span class="highlight-cyan">[1] Performance scripting – Deep registry and service tweaks that give a permanent FPS boost.</span>
+                </span>
+                `, 'output');
+            }
+
+            function handleLanguages() {
+                appendOutput(`
+                <i class="fas fa-sitemap" style="color:#c9a84c;"></i> <span class="highlight">Our Scripting Pipeline:</span><br>
+                <span style="padding-left:1.5rem; display:block; color:#b9b3a8;">
+                    <span class="highlight">Answer Files (Unattended XML) → Deploy base Windows image</span><br>
+                    &nbsp;&nbsp;&nbsp;↓<br>
+                    <span class="highlight">Batch (.bat) → Automate driver installation, registry imports, and first‑boot setup</span><br>
+                    &nbsp;&nbsp;&nbsp;↓<br>
+                    <span class="highlight">PowerShell (.ps1) → Deep system tuning, service optimization, and health checks</span>
+                </span>
+                `, 'output');
+            }
+
+            function handleTools() {
+                appendOutput(`
+                <i class="fas fa-toolbox" style="color:#c9a84c;"></i> <span class="highlight">Tool Breakdown:</span><br>
+                <span style="padding-left:1.5rem; display:block; color:#b9b3a8;">
+                    <span class="highlight-cyan">HIDUSBF – USB input lag reduction & polling rate booster</span><br>
+                    <span class="highlight-cyan">SDIO – Snappy Driver Installer Origin – offline driver management</span><br>
+                    <span class="highlight-cyan">Registry Editor – Manual and scripted system tweaks</span><br>
+                    <span class="highlight-cyan">CPU-Z – Hardware diagnostics and benchmarking</span><br>
+                    <span class="highlight-cyan">Rufus – Bootable USB creation for Windows deployment</span><br>
+                    <span class="highlight-cyan">Revo / BCUninstaller – Deep bloatware and leftover file removal</span><br>
+                    <span class="highlight-cyan">Process Explorer – Advanced task manager for debugging</span><br>
+                    <span class="highlight-cyan">AnyDesk – Remote support for quick fixes</span>
+                </span>
+                `, 'output');
+            }
+
+            // ---- Process ----
             function processCommand(input) {
                 const trimmed = input.trim();
                 if (!trimmed) return;
-                stopRelax();
                 appendLine(trimmed, true);
                 const lower = trimmed.toLowerCase();
 
                 if (lower === 'sigma perf' || lower === 'sigma performance' || lower === 'performance') {
                     runOptimization();
-                } else if (lower === 'relax') {
-                    startRelax();
                 } else if (lower === 'services') {
-                    appendOutput(`
-                    <i class="fas fa-star" style="color:#c9a84c;"></i> <span class="highlight">Top 3 Services for Gamers & Power Users:</span><br>
-                    <span style="padding-left:1.5rem; display:block;">
-                        <span class="highlight-cyan">[6] Controller latency optimization</span> – Reduces input lag using HIDUSBF and polling rate tools. Essential for competitive gaming.<br>
-                        <span class="highlight-cyan">[8] Overheating reduction</span> – Custom power plan scripts that lower CPU/GPU temps without losing performance.<br>
-                        <span class="highlight-cyan">[1] Performance scripting</span> – Deep registry and service tweaks that give a permanent FPS boost.
-                    </span>
-                    `, 'output');
+                    handleServices();
                 } else if (lower === 'languages') {
-                    appendOutput(`
-                    <i class="fas fa-sitemap" style="color:#c9a84c;"></i> <span class="highlight">Our Scripting Pipeline:</span><br>
-                    <span style="padding-left:1.5rem; display:block; color:#b9b3a8;">
-                        <span class="highlight">Answer Files</span> (Unattended XML) → Deploy base Windows image<br>
-                        &nbsp;&nbsp;&nbsp;↓<br>
-                        <span class="highlight">Batch</span> (.bat) → Automate driver installation, registry imports, and first‑boot setup<br>
-                        &nbsp;&nbsp;&nbsp;↓<br>
-                        <span class="highlight">PowerShell</span> (.ps1) → Deep system tuning, service optimization, and health checks
-                    </span>
-                    `, 'output');
+                    handleLanguages();
                 } else if (lower === 'tools') {
-                    appendOutput(`
-                    <i class="fas fa-toolbox" style="color:#c9a84c;"></i> <span class="highlight">Tool Breakdown:</span><br>
-                    <span style="padding-left:1.5rem; display:block; color:#b9b3a8;">
-                        <span class="highlight-cyan">HIDUSBF</span> – USB input lag reduction & polling rate booster<br>
-                        <span class="highlight-cyan">SDIO</span> – Snappy Driver Installer Origin – offline driver management<br>
-                        <span class="highlight-cyan">Registry Editor</span> – Manual and scripted system tweaks<br>
-                        <span class="highlight-cyan">CPU-Z</span> – Hardware diagnostics and benchmarking<br>
-                        <span class="highlight-cyan">Rufus</span> – Bootable USB creation for Windows deployment<br>
-                        <span class="highlight-cyan">Revo / BCUninstaller</span> – Deep bloatware and leftover file removal<br>
-                        <span class="highlight-cyan">Process Explorer</span> – Advanced task manager for debugging<br>
-                        <span class="highlight-cyan">AnyDesk</span> – Remote support for quick fixes
-                    </span>
-                    `, 'output');
+                    handleTools();
                 } else if (lower === 'clear') {
                     clearInteractive();
                 } else {
@@ -1239,7 +2093,7 @@
                 outputArea.scrollTop = outputArea.scrollHeight;
             }
 
-            // ----- Event Listeners -----
+            // ---- Events ----
             cmdInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     const val = this.value;
@@ -1249,16 +2103,19 @@
                 }
             });
 
-            window.addEventListener('load', function() {
-                cmdInput.focus();
-            });
+            // No automatic focus on page load – user can click the input if they want.
+            // We also remove the window load focus listener.
 
             document.querySelector('.terminal-window').addEventListener('click', function(e) {
                 if (e.target.tagName !== 'INPUT') cmdInput.focus();
             });
 
-            console.log('SigmaPerformance Terminal ready. Commands listed in the legend below.');
         })();
+
+        console.log('SigmaPerformance · Dreamscape (reduced) loaded.');
+        console.log('✨ Modes: mandala, aurora, tesseract, fractal');
+        console.log('🖥️  Terminal: commands: sigma perf, services, languages, tools, clear');
+        console.log('🔒 No auto-focus on load – page stays at top.');
     </script>
 </body>
 </html>

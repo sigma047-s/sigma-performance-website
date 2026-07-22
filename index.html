@@ -4,11 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SigmaPerformance · Professional PC Optimization</title>
-    <!-- Google Fonts: Elegant Serif + Retro Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
-    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
     <style>
         /* ---------- RESET & BASE ---------- */
@@ -31,7 +29,6 @@
             position: relative;
         }
 
-        /* CRT Scanline Overlay */
         body::before {
             content: '';
             position: fixed;
@@ -48,7 +45,6 @@
             z-index: 999;
         }
 
-        /* Vignette */
         body::after {
             content: '';
             position: fixed;
@@ -68,15 +64,12 @@
             z-index: 10;
         }
 
-        /* ---------- MAIN FRAME (CRT MONITOR) ---------- */
+        /* ---------- MAIN FRAME ---------- */
         .frame {
             border: 2px solid #2a2e36;
             border-radius: 12px;
             background: #0f1217;
-            box-shadow: 
-                inset 0 0 60px rgba(0, 0, 0, 0.9),
-                0 0 40px rgba(201, 168, 76, 0.02),
-                0 0 0 1px #1a1e24 inset;
+            box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.9), 0 0 40px rgba(201, 168, 76, 0.02), 0 0 0 1px #1a1e24 inset;
             padding: 2.5rem 2.5rem;
             position: relative;
             backdrop-filter: blur(1px);
@@ -96,16 +89,26 @@
         }
 
         /* ---------- TYPOGRAPHY ---------- */
-        h1, h2, h3, .logo-text {
+        h1,
+        h2,
+        h3,
+        .logo-text {
             font-family: 'Playfair Display', 'Georgia', serif;
             font-weight: 600;
             color: #e8e0d5;
             letter-spacing: 0.02em;
         }
 
-        .gold-accent { color: #c9a84c; }
-        .muted-teal { color: #5f7b89; }
-        .serif-italic { font-family: 'Playfair Display', serif; font-style: italic; }
+        .gold-accent {
+            color: #c9a84c;
+        }
+        .muted-teal {
+            color: #5f7b89;
+        }
+        .serif-italic {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+        }
 
         .mono-detail {
             font-family: 'Courier Prime', monospace;
@@ -166,7 +169,10 @@
             border-bottom: 1px solid transparent;
             padding-bottom: 0.2rem;
         }
-        .nav-links a:hover { color: #c9a84c; border-bottom-color: #c9a84c; }
+        .nav-links a:hover {
+            color: #c9a84c;
+            border-bottom-color: #c9a84c;
+        }
 
         /* ---------- HERO ---------- */
         .hero {
@@ -182,7 +188,11 @@
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
-        .hero h1 .highlight { color: #c9a84c; border-bottom: 2px solid #c9a84c; padding-bottom: 0.1rem; }
+        .hero h1 .highlight {
+            color: #c9a84c;
+            border-bottom: 2px solid #c9a84c;
+            padding-bottom: 0.1rem;
+        }
         .hero .tagline {
             font-size: 1.1rem;
             color: #9aabb8;
@@ -233,7 +243,10 @@
             text-decoration: none;
             display: inline-block;
         }
-        .btn-secondary:hover { border-color: #5f7b89; color: #e8e0d5; }
+        .btn-secondary:hover {
+            border-color: #5f7b89;
+            color: #e8e0d5;
+        }
 
         .hero-statue {
             text-align: right;
@@ -243,7 +256,13 @@
             border-right: 2px solid #1e232b;
             padding-right: 2rem;
         }
-        .hero-statue i { display: block; font-size: 5rem; color: #c9a84c; opacity: 0.15; margin-bottom: 0.5rem; }
+        .hero-statue i {
+            display: block;
+            font-size: 5rem;
+            color: #c9a84c;
+            opacity: 0.15;
+            margin-bottom: 0.5rem;
+        }
         .hero-statue .statue-label {
             font-family: 'Courier Prime', monospace;
             font-size: 0.6rem;
@@ -252,7 +271,7 @@
             text-transform: uppercase;
         }
 
-        /* ---------- STATS / TRUST ---------- */
+        /* ---------- STATS ---------- */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -262,8 +281,14 @@
             border-bottom: 1px solid #1a1f26;
             margin: 1.5rem 0 2.5rem 0;
         }
-        .stat-item { text-align: center; padding: 0.5rem; border-right: 1px solid #181d24; }
-        .stat-item:last-child { border-right: none; }
+        .stat-item {
+            text-align: center;
+            padding: 0.5rem;
+            border-right: 1px solid #181d24;
+        }
+        .stat-item:last-child {
+            border-right: none;
+        }
         .stat-number {
             font-family: 'Playfair Display', serif;
             font-size: 1.8rem;
@@ -326,17 +351,27 @@
             margin-bottom: 0.8rem;
             display: inline-block;
         }
-        .service-card h3 { font-size: 1.1rem; margin-bottom: 0.4rem; font-weight: 600; }
-        .service-card p { font-size: 0.85rem; color: #9aabb8; line-height: 1.6; }
+        .service-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.4rem;
+            font-weight: 600;
+        }
+        .service-card p {
+            font-size: 0.85rem;
+            color: #9aabb8;
+            line-height: 1.6;
+        }
         .service-card .icon {
             float: right;
             font-size: 1.5rem;
             color: #2a3542;
             transition: color 0.3s;
         }
-        .service-card:hover .icon { color: #c9a84c; }
+        .service-card:hover .icon {
+            color: #c9a84c;
+        }
 
-        /* ---------- SPECS (LANGUAGES + TOOLS) ---------- */
+        /* ---------- SPECS ---------- */
         .specs-grid {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -344,7 +379,7 @@
             margin: 1.5rem 0;
             border: 1px solid #1a1f26;
             padding: 1.5rem;
-            background: rgba(0,0,0,0.2);
+            background: rgba(0, 0, 0, 0.2);
         }
         .specs-grid h3 {
             font-family: 'Courier Prime', monospace;
@@ -364,7 +399,10 @@
             color: #b9b3a8;
             border: 1px solid #2a2e36;
         }
-        .specs-grid .spec-item i { margin-right: 0.4rem; color: #c9a84c; }
+        .specs-grid .spec-item i {
+            margin-right: 0.4rem;
+            color: #c9a84c;
+        }
 
         /* ---------- PARTNERSHIP ---------- */
         .partnership-box {
@@ -375,10 +413,15 @@
             border: 1px solid #1a1f26;
             border-left-width: 4px;
         }
-        .partnership-box p { color: #b9b3a8; line-height: 1.8; }
-        .partnership-box strong { color: #e8e0d5; }
+        .partnership-box p {
+            color: #b9b3a8;
+            line-height: 1.8;
+        }
+        .partnership-box strong {
+            color: #e8e0d5;
+        }
 
-        /* ---------- INTERACTIVE TERMINAL ---------- */
+        /* ---------- TERMINAL ---------- */
         .terminal-section {
             margin: 2rem 0 1rem 0;
             border-top: 1px solid #1a1f26;
@@ -388,7 +431,7 @@
             background: #0a0c0f;
             border: 1px solid #2a2e36;
             padding: 1.2rem 1.5rem;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+            box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.8);
             position: relative;
         }
         .terminal-window .term-bar {
@@ -398,23 +441,42 @@
             padding-bottom: 0.5rem;
             margin-bottom: 1rem;
         }
-        .term-dot { width: 12px; height: 12px; border-radius: 50%; background: #2a2e36; }
-        .term-dot.red { background: #5f3a3a; }
-        .term-dot.yellow { background: #5f4f2a; }
-        .term-dot.green { background: #2a4f3a; }
+        .term-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #2a2e36;
+        }
+        .term-dot.red {
+            background: #5f3a3a;
+        }
+        .term-dot.yellow {
+            background: #5f4f2a;
+        }
+        .term-dot.green {
+            background: #2a4f3a;
+        }
 
         .output-area {
-            max-height: 300px;
+            max-height: 320px;
             overflow-y: auto;
             padding-right: 0.5rem;
             font-family: 'Courier Prime', monospace;
             font-size: 0.85rem;
-            line-height: 1.6;
+            line-height: 1.7;
             color: #b9b3a8;
+            min-height: 80px;
         }
-        .output-area::-webkit-scrollbar { width: 4px; }
-        .output-area::-webkit-scrollbar-track { background: #0a0c0f; }
-        .output-area::-webkit-scrollbar-thumb { background: #c9a84c; border-radius: 4px; }
+        .output-area::-webkit-scrollbar {
+            width: 4px;
+        }
+        .output-area::-webkit-scrollbar-track {
+            background: #0a0c0f;
+        }
+        .output-area::-webkit-scrollbar-thumb {
+            background: #c9a84c;
+            border-radius: 4px;
+        }
 
         .input-line {
             display: flex;
@@ -424,7 +486,10 @@
             border-top: 1px solid #1a1f26;
             padding-top: 0.8rem;
         }
-        .input-prompt { color: #c9a84c; font-weight: 700; }
+        .input-prompt {
+            color: #c9a84c;
+            font-weight: 700;
+        }
         #cmdInput {
             background: transparent;
             border: none;
@@ -441,31 +506,73 @@
             background: #c9a84c;
             animation: blink 1s step-end infinite;
         }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
 
-        .line { margin-bottom: 0.2rem; }
-        .output { padding-left: 1.5rem; color: #9aabb8; }
-        .output i { width: 1.5rem; margin-right: 0.2rem; text-align: center; color: #c9a84c; }
-        .highlight { color: #c9a84c; }
-        .highlight-blue { color: #5f7b89; }
-        .highlight-cyan { color: #6fc3df; }
-        .dim { color: #5f7389; }
-        .prompt-cmd { color: #c9a84c; }
-        .cmd-text { color: #e8e0d5; }
+        .line {
+            margin-bottom: 0.2rem;
+        }
+        .output {
+            padding-left: 1.5rem;
+            color: #9aabb8;
+        }
+        .output i {
+            width: 1.5rem;
+            margin-right: 0.2rem;
+            text-align: center;
+            color: #c9a84c;
+        }
+        .highlight {
+            color: #c9a84c;
+        }
+        .highlight-blue {
+            color: #5f7b89;
+        }
+        .highlight-cyan {
+            color: #6fc3df;
+        }
+        .dim {
+            color: #5f7389;
+        }
+        .prompt-cmd {
+            color: #c9a84c;
+        }
+        .cmd-text {
+            color: #e8e0d5;
+        }
 
-        .progress-container { padding-left: 1.5rem; margin: 0.5rem 0; }
+        .progress-container {
+            padding-left: 1.5rem;
+            margin: 0.5rem 0;
+        }
         .progress-bar {
-            width: 100%; max-width: 400px; height: 14px;
-            background: #1a1f26; border-radius: 10px; overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+            height: 14px;
+            background: #1a1f26;
+            border-radius: 10px;
+            overflow: hidden;
             border: 1px solid #2a2e36;
         }
         .progress-fill {
-            height: 100%; width: 0%;
+            height: 100%;
+            width: 0%;
             background: linear-gradient(90deg, #c9a84c, #5f7b89);
             border-radius: 10px;
             transition: width 0.35s ease;
         }
-        .progress-label { color: #5f7389; font-size: 0.7rem; margin-left: 0.5rem; }
+        .progress-label {
+            color: #5f7389;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
 
         .relax-monitor {
             background: #0a0c0f;
@@ -473,20 +580,76 @@
             border-radius: 4px;
             padding: 1rem;
             margin: 0.5rem 0;
-            width: 100%; max-width: 350px;
+            width: 100%;
+            max-width: 350px;
             aspect-ratio: 16 / 9;
             position: relative;
             overflow: hidden;
         }
         .ball {
             position: absolute;
-            width: 30px; height: 30px;
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
             background: radial-gradient(circle at 30% 30%, #c9a84c, #7a6b2a);
             box-shadow: 0 0 25px rgba(201, 168, 76, 0.3);
             will-change: transform, left, top;
         }
-        .relax-sub { text-align: center; color: #3e5270; font-size: 0.6rem; letter-spacing: 4px; margin-top: 0.2rem; }
+        .relax-sub {
+            text-align: center;
+            color: #3e5270;
+            font-size: 0.6rem;
+            letter-spacing: 4px;
+            margin-top: 0.2rem;
+        }
+
+        /* ---------- COMMAND LEGEND (outside console) ---------- */
+        .command-legend {
+            margin: 1.2rem 0 0.5rem 0;
+            border: 1px solid #1a1f26;
+            background: rgba(10, 12, 15, 0.7);
+            padding: 1rem 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.4rem 1.2rem;
+            border-radius: 4px;
+        }
+        .command-legend .legend-title {
+            grid-column: 1 / -1;
+            font-family: 'Courier Prime', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: #5f7389;
+            border-bottom: 1px solid #1a1f26;
+            padding-bottom: 0.4rem;
+            margin-bottom: 0.4rem;
+        }
+        .cmd-entry {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            font-size: 0.78rem;
+            color: #9aabb8;
+            padding: 0.15rem 0;
+        }
+        .cmd-entry .cmd-name {
+            font-family: 'Courier Prime', monospace;
+            color: #c9a84c;
+            font-weight: 700;
+            font-size: 0.75rem;
+            min-width: 70px;
+            letter-spacing: 0.02em;
+        }
+        .cmd-entry .cmd-desc {
+            color: #7a8a94;
+            font-size: 0.7rem;
+        }
+        .cmd-entry .cmd-desc i {
+            color: #5f7389;
+            margin-right: 0.3rem;
+            font-size: 0.6rem;
+        }
 
         /* ---------- CONTACT ---------- */
         .contact-area {
@@ -503,10 +666,25 @@
             gap: 1rem;
             font-size: 1rem;
         }
-        .contact-detail i { width: 2rem; color: #c9a84c; font-size: 1.4rem; text-align: center; }
-        .contact-detail a { color: #b9b3a8; text-decoration: none; border-bottom: 1px dotted #2a2e36; transition: 0.3s; }
-        .contact-detail a:hover { color: #c9a84c; border-bottom-color: #c9a84c; }
-        .contact-detail span { color: #b9b3a8; }
+        .contact-detail i {
+            width: 2rem;
+            color: #c9a84c;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+        .contact-detail a {
+            color: #b9b3a8;
+            text-decoration: none;
+            border-bottom: 1px dotted #2a2e36;
+            transition: 0.3s;
+        }
+        .contact-detail a:hover {
+            color: #c9a84c;
+            border-bottom-color: #c9a84c;
+        }
+        .contact-detail span {
+            color: #b9b3a8;
+        }
 
         .footer {
             margin-top: 3rem;
@@ -521,451 +699,513 @@
             letter-spacing: 0.1em;
             text-transform: uppercase;
         }
-        .footer a { color: #5f7389; text-decoration: none; transition: 0.3s; }
-        .footer a:hover { color: #c9a84c; }
+        .footer a {
+            color: #5f7389;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .footer a:hover {
+            color: #c9a84c;
+        }
 
         /* ---------- RESPONSIVE ---------- */
         @media (max-width: 900px) {
-            .hero { grid-template-columns: 1fr; gap: 2rem; text-align: center; }
-            .hero .tagline { border-left: none; padding-left: 0; border-top: 2px solid #c9a84c; padding-top: 1rem; }
-            .hero .btn-group { justify-content: center; }
-            .hero-statue { text-align: center; border-right: none; padding-right: 0; border-bottom: 1px solid #1e232b; padding-bottom: 1.5rem; }
-            .services-grid, .contact-area, .specs-grid { grid-template-columns: 1fr; }
-            .stats-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
-            .stat-item { border-right: none; border-bottom: 1px solid #181d24; padding-bottom: 0.8rem; }
-            .stat-item:nth-last-child(-n+2) { border-bottom: none; }
-            .header { flex-direction: column; gap: 1rem; align-items: flex-start; }
-            .nav-links { flex-wrap: wrap; gap: 1rem; font-size: 0.65rem; }
-            .frame { padding: 1.5rem 1rem; }
-            .section-head h2 { font-size: 1.8rem; }
+            .hero {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                text-align: center;
+            }
+            .hero .tagline {
+                border-left: none;
+                padding-left: 0;
+                border-top: 2px solid #c9a84c;
+                padding-top: 1rem;
+            }
+            .hero .btn-group {
+                justify-content: center;
+            }
+            .hero-statue {
+                text-align: center;
+                border-right: none;
+                padding-right: 0;
+                border-bottom: 1px solid #1e232b;
+                padding-bottom: 1.5rem;
+            }
+            .services-grid,
+            .contact-area,
+            .specs-grid {
+                grid-template-columns: 1fr;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .stat-item {
+                border-right: none;
+                border-bottom: 1px solid #181d24;
+                padding-bottom: 0.8rem;
+            }
+            .stat-item:nth-last-child(-n+2) {
+                border-bottom: none;
+            }
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+                font-size: 0.65rem;
+            }
+            .frame {
+                padding: 1.5rem 1rem;
+            }
+            .section-head h2 {
+                font-size: 1.8rem;
+            }
+            .command-legend {
+                grid-template-columns: 1fr 1fr;
+                padding: 0.8rem 1rem;
+            }
+            .cmd-entry .cmd-name {
+                min-width: 60px;
+            }
         }
         @media (max-width: 500px) {
-            .logo-text { font-size: 1.4rem; }
-            .hero h1 { font-size: 2.2rem; }
+            .logo-text {
+                font-size: 1.4rem;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .command-legend {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="frame">
+    <div class="container">
+        <div class="frame">
 
-        <!-- ===== HEADER ===== -->
-        <header class="header">
-            <div class="logo">
-                <span class="logo-text">Sigma<span class="gold-accent">Performance</span></span>
-                <span class="logo-sub">Professional PC Optimization</span>
-            </div>
-            <nav class="nav-links">
-                <a href="#services">Services</a>
-                <a href="#tools">Tools &amp; Languages</a>
-                <a href="#terminal">Console</a>
-                <a href="#contact">Contact</a>
-            </nav>
-        </header>
+            <!-- ===== HEADER ===== -->
+            <header class="header">
+                <div class="logo">
+                    <span class="logo-text">Sigma<span class="gold-accent">Performance</span></span>
+                    <span class="logo-sub">Professional PC Optimization</span>
+                </div>
+                <nav class="nav-links">
+                    <a href="#services">Services</a>
+                    <a href="#tools">Tools &amp; Languages</a>
+                    <a href="#terminal">Console</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+            </header>
 
-        <!-- ===== HERO ===== -->
-        <section class="hero">
-            <div>
-                <h1>Make your PC <br /><span class="highlight">faster</span></h1>
-                <div class="tagline">We optimize Windows for gaming, work, and everyday use.</div>
-                <div class="btn-group">
-                    <a href="#contact" class="btn-primary"><i class="fas fa-pen-fancy"></i> Get a free quote</a>
-                    <a href="#services" class="btn-secondary"><i class="fas fa-compass"></i> See services</a>
-                </div>
-            </div>
-            <div class="hero-statue">
-                <i class="fas fa-microchip"></i>
-                <span class="statue-label">⚡ Performance</span>
-            </div>
-        </section>
-
-        <!-- ===== STATS / TRUST ===== -->
-        <div class="stats-grid">
-            <div class="stat-item"><span class="stat-number">17</span><span class="stat-label">PCs optimized</span></div>
-            <div class="stat-item"><span class="stat-number">4.7</span><span class="stat-label">Average rating</span></div>
-            <div class="stat-item"><span class="stat-number">24h</span><span class="stat-label">Fast turnaround</span></div>
-            <div class="stat-item"><span class="stat-number">∞</span><span class="stat-label">Satisfaction guaranteed</span></div>
-        </div>
-
-        <!-- ===== SERVICES ===== -->
-        <div id="services">
-            <div class="section-head">
-                <h2>Our <span class="gold-accent">Services</span></h2>
-                <div class="sub">— what we do —</div>
-            </div>
-            <div class="services-grid">
-                <!-- Service 1 -->
-                <div class="service-card">
-                    <span class="service-num">[1]</span>
-                    <i class="fas fa-tachometer-alt icon"></i>
-                    <h3>Performance Scripting</h3>
-                    <p>Windows performance optimization using custom scripts.</p>
-                </div>
-                <!-- Service 2 -->
-                <div class="service-card">
-                    <span class="service-num">[2]</span>
-                    <i class="fas fa-window-restore icon"></i>
-                    <h3>Clean Installation</h3>
-                    <p>Clean installation with answer files &amp; USB media.</p>
-                </div>
-                <!-- Service 3 -->
-                <div class="service-card">
-                    <span class="service-num">[3]</span>
-                    <i class="fas fa-microchip icon"></i>
-                    <h3>Driver Management</h3>
-                    <p>Online/offline driver installation &amp; configuration.</p>
-                </div>
-                <!-- Service 4 -->
-                <div class="service-card">
-                    <span class="service-num">[4]</span>
-                    <i class="fas fa-shield-alt icon"></i>
-                    <h3>Remove Bloatware</h3>
-                    <p>Safe bloatware removal &amp; system cleanup.</p>
-                </div>
-                <!-- Service 5 -->
-                <div class="service-card">
-                    <span class="service-num">[5]</span>
-                    <i class="fas fa-cog icon"></i>
-                    <h3>Workload Tuning</h3>
-                    <p>Workload‑specific system optimization.</p>
-                </div>
-                <!-- Service 6 -->
-                <div class="service-card">
-                    <span class="service-num">[6]</span>
-                    <i class="fas fa-gamepad icon"></i>
-                    <h3>Reduce Input Lag</h3>
-                    <p>Controller latency calibration &amp; polling rate tuning.</p>
-                </div>
-                <!-- Service 7 -->
-                <div class="service-card">
-                    <span class="service-num">[7]</span>
-                    <i class="fas fa-tools icon"></i>
-                    <h3>Repair &amp; Recovery</h3>
-                    <p>Troubleshooting, repair, and recovery.</p>
-                </div>
-                <!-- Service 8 -->
-                <div class="service-card">
-                    <span class="service-num">[8]</span>
-                    <i class="fas fa-thermometer-half icon"></i>
-                    <h3>Reduce Overheating</h3>
-                    <p>Overheating reduction via power‑plan scripts.</p>
-                </div>
-                <!-- Service 9 -->
-                <div class="service-card">
-                    <span class="service-num">[9]</span>
-                    <i class="fas fa-cloud-upload-alt icon"></i>
-                    <h3>Remote Support</h3>
-                    <p>Remote support via AnyDesk.</p>
-                </div>
-                <!-- Service 10 -->
-                <div class="service-card">
-                    <span class="service-num">[10]</span>
-                    <i class="fas fa-hdd icon"></i>
-                    <h3>Drive Cleanup</h3>
-                    <p>Drive cleanup &amp; maintenance (PowerShell/CMD).</p>
-                </div>
-                <!-- Service 11 -->
-                <div class="service-card">
-                    <span class="service-num">[11]</span>
-                    <i class="fas fa-sync-alt icon"></i>
-                    <h3>System Health</h3>
-                    <p>Windows updates &amp; system health monitoring.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="divider-line"></div>
-
-        <!-- ===== TOOLS & LANGUAGES ===== -->
-        <div id="tools">
-            <div class="section-head">
-                <h2><span class="gold-accent">Tools</span> &amp; Languages</h2>
-                <div class="sub">— what we use —</div>
-            </div>
-            <div class="specs-grid">
+            <!-- ===== HERO ===== -->
+            <section class="hero">
                 <div>
-                    <h3><i class="fas fa-code"></i> Languages</h3>
-                    <div>
-                        <span class="spec-item">Answer File</span>
-                        <span class="spec-item">Batch</span>
-                        <span class="spec-item">PowerShell</span>
+                    <h1>Make your PC <br /><span class="highlight">faster</span></h1>
+                    <div class="tagline">We optimize Windows for gaming, work, and everyday use.</div>
+                    <div class="btn-group">
+                        <a href="#contact" class="btn-primary"><i class="fas fa-pen-fancy"></i> Get a free quote</a>
+                        <a href="#services" class="btn-secondary"><i class="fas fa-compass"></i> See services</a>
                     </div>
                 </div>
-                <div>
-                    <h3><i class="fas fa-wrench"></i> Tools</h3>
-                    <div>
-                        <span class="spec-item">HIDUSBF</span>
-                        <span class="spec-item">SDIO</span>
-                        <span class="spec-item">Registry Editor</span>
-                        <span class="spec-item">Notepad</span>
-                        <span class="spec-item">CPU-Z</span>
-                        <span class="spec-item">Rufus</span>
-                        <span class="spec-item">Revo</span>
-                        <span class="spec-item">BCUninstaller</span>
-                        <span class="spec-item">Process Explorer</span>
-                        <span class="spec-item">AnyDesk</span>
+                <div class="hero-statue">
+                    <i class="fas fa-microchip"></i>
+                    <span class="statue-label">⚡ Performance</span>
+                </div>
+            </section>
+
+            <!-- ===== STATS ===== -->
+            <div class="stats-grid">
+                <div class="stat-item"><span class="stat-number">17</span><span class="stat-label">PCs optimized</span></div>
+                <div class="stat-item"><span class="stat-number">4.7</span><span class="stat-label">Average rating</span></div>
+                <div class="stat-item"><span class="stat-number">24h</span><span class="stat-label">Fast turnaround</span></div>
+                <div class="stat-item"><span class="stat-number">∞</span><span class="stat-label">Satisfaction guaranteed</span></div>
+            </div>
+
+            <!-- ===== SERVICES ===== -->
+            <div id="services">
+                <div class="section-head">
+                    <h2>Our <span class="gold-accent">Services</span></h2>
+                    <div class="sub">— what we do —</div>
+                </div>
+                <div class="services-grid">
+                    <div class="service-card">
+                        <span class="service-num">[1]</span>
+                        <i class="fas fa-tachometer-alt icon"></i>
+                        <h3>Performance Scripting</h3>
+                        <p>Windows performance optimization using custom scripts.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">[2]</span>
+                        <i class="fas fa-window-restore icon"></i>
+                        <h3>Clean Installation</h3>
+                        <p>Clean installation with answer files &amp; USB media.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">[3]</span>
+                        <i class="fas fa-microchip icon"></i>
+                        <h3>Driver Management</h3>
+                        <p>Online/offline driver installation &amp; configuration.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">[4]</span>
+                        <i class="fas fa-shield-alt icon"></i>
+                        <h3>Remove Bloatware</h3>
+                        <p>Safe bloatware removal &amp; system cleanup.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">[5]</span>
+                        <i class="fas fa-cog icon"></i>
+                        <h3>Workload Tuning</h3>
+                        <p>Workload‑specific system optimization.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">[6]</span>
+                        <i class="fas fa-gamepad icon"></i>
+                        <h3>Reduce Input Lag</h3>
+                        <p>Controller latency calibration &amp; polling rate tuning.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">[7]</span>
+                        <i class="fas fa-tools icon"></i>
+                        <h3>Repair &amp; Recovery</h3>
+                        <p>Troubleshooting, repair, and recovery.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">[8]</span>
+                        <i class="fas fa-thermometer-half icon"></i>
+                        <h3>Reduce Overheating</h3>
+                        <p>Overheating reduction via power‑plan scripts.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">[9]</span>
+                        <i class="fas fa-cloud-upload-alt icon"></i>
+                        <h3>Remote Support</h3>
+                        <p>Remote support via AnyDesk.</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">[10]</span>
+                        <i class="fas fa-hdd icon"></i>
+                        <h3>Drive Cleanup</h3>
+                        <p>Drive cleanup &amp; maintenance (PowerShell/CMD).</p>
+                    </div>
+                    <div class="service-card">
+                        <span class="service-num">[11]</span>
+                        <i class="fas fa-sync-alt icon"></i>
+                        <h3>System Health</h3>
+                        <p>Windows updates &amp; system health monitoring.</p>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <!-- ===== PARTNERSHIP ===== -->
-        <div class="partnership-box">
-            <p><i class="fas fa-handshake" style="color:#c9a84c; margin-right: 1rem;"></i>
-            <strong>Partnership with repair shops &amp; PC builders:</strong><br />
-            We help repair shops &amp; PC builders deliver professional Windows optimization using <span class="gold-accent">Answer files, Batch, PowerShell, and tuning tools</span>.
-            Extend hardware repairs with software performance — stable, repeatable, and fast.</p>
-        </div>
+            <div class="divider-line"></div>
 
-        <div class="divider-line"></div>
-
-        <!-- ===== INTERACTIVE TERMINAL ===== -->
-        <div id="terminal" class="terminal-section">
-            <div class="section-head">
-                <h2>The <span class="gold-accent">Console</span></h2>
-                <div class="sub">— interactive command line —</div>
-            </div>
-            <div class="terminal-window">
-                <div class="term-bar">
-                    <span class="term-dot red"></span>
-                    <span class="term-dot yellow"></span>
-                    <span class="term-dot green"></span>
-                    <span style="color:#5f7389; font-size:0.7rem; margin-left:0.5rem;">SigmaPerformance · Terminal v2.0</span>
+            <!-- ===== TOOLS & LANGUAGES ===== -->
+            <div id="tools">
+                <div class="section-head">
+                    <h2><span class="gold-accent">Tools</span> &amp; Languages</h2>
+                    <div class="sub">— what we use —</div>
                 </div>
-                <div class="output-area" id="outputArea">
-                    <!-- Starts empty — content injected by JS only on user commands -->
-                </div>
-                <div class="input-line">
-                    <span class="input-prompt">C:\sigma&gt;</span>
-                    <input type="text" id="cmdInput" autofocus spellcheck="false" autocomplete="off" />
-                    <span class="cursor-blink"></span>
-                </div>
-            </div>
-            <div style="margin-top: 0.5rem; font-size: 0.7rem; color: #3d4b57; text-align: center; letter-spacing: 0.1em;">
-                <i class="fas fa-terminal"></i> Type <span class="gold-accent">sigma</span> to see available commands.
-            </div>
-        </div>
-
-        <div class="divider-line"></div>
-
-        <!-- ===== CONTACT ===== -->
-        <div id="contact">
-            <div class="section-head">
-                <h2>Contact <span class="gold-accent">Us</span></h2>
-                <div class="sub">— we respond within 12 hours —</div>
-            </div>
-            <div class="contact-area">
-                <div class="contact-detail">
-                    <i class="fas fa-envelope"></i>
-                    <a href="mailto:sigmaperformance.tech@gmail.com?subject=PC%20Optimization%20Inquiry">sigmaperformance.tech@gmail.com</a>
-                </div>
-                <div class="contact-detail">
-                    <i class="fas fa-phone-alt"></i>
-                    <a href="tel:+18197128461">+1 (819) 712-8461</a>
-                </div>
-                <div class="contact-detail">
-                    <i class="fas fa-map-pin"></i>
-                    <span>Ottawa, ON · Global Reach</span>
+                <div class="specs-grid">
+                    <div>
+                        <h3><i class="fas fa-code"></i> Languages</h3>
+                        <div>
+                            <span class="spec-item">Answer File</span>
+                            <span class="spec-item">Batch</span>
+                            <span class="spec-item">PowerShell</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h3><i class="fas fa-wrench"></i> Tools</h3>
+                        <div>
+                            <span class="spec-item">HIDUSBF</span>
+                            <span class="spec-item">SDIO</span>
+                            <span class="spec-item">Registry Editor</span>
+                            <span class="spec-item">Notepad</span>
+                            <span class="spec-item">CPU-Z</span>
+                            <span class="spec-item">Rufus</span>
+                            <span class="spec-item">Revo</span>
+                            <span class="spec-item">BCUninstaller</span>
+                            <span class="spec-item">Process Explorer</span>
+                            <span class="spec-item">AnyDesk</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- ===== PARTNERSHIP ===== -->
+            <div class="partnership-box">
+                <p><i class="fas fa-handshake" style="color:#c9a84c; margin-right: 1rem;"></i>
+                    <strong>Partnership with repair shops &amp; PC builders:</strong><br />
+                    We help repair shops &amp; PC builders deliver professional Windows optimization using <span class="gold-accent">Answer files, Batch, PowerShell, and tuning tools</span>.
+                    Extend hardware repairs with software performance — stable, repeatable, and fast.
+                </p>
+            </div>
+
+            <div class="divider-line"></div>
+
+            <!-- ===== INTERACTIVE TERMINAL ===== -->
+            <div id="terminal" class="terminal-section">
+                <div class="section-head">
+                    <h2>The <span class="gold-accent">Console</span></h2>
+                    <div class="sub">— interactive command line —</div>
+                </div>
+                <div class="terminal-window">
+                    <div class="term-bar">
+                        <span class="term-dot red"></span>
+                        <span class="term-dot yellow"></span>
+                        <span class="term-dot green"></span>
+                        <span style="color:#5f7389; font-size:0.7rem; margin-left:0.5rem;">SigmaPerformance · Terminal v2.0</span>
+                    </div>
+                    <div class="output-area" id="outputArea">
+                        <!-- Empty by default – commands appear here when typed -->
+                    </div>
+                    <div class="input-line">
+                        <span class="input-prompt">C:\sigma&gt;</span>
+                        <input type="text" id="cmdInput" autofocus spellcheck="false" autocomplete="off" />
+                        <span class="cursor-blink"></span>
+                    </div>
+                </div>
+
+                <!-- ===== COMMAND LEGEND – OUTSIDE CONSOLE ===== -->
+                <div class="command-legend">
+                    <div class="legend-title"><i class="fas fa-terminal" style="margin-right:0.5rem; color:#c9a84c;"></i> available commands</div>
+                    <div class="cmd-entry"><span class="cmd-name">sigma perf</span><span class="cmd-desc"><i class="fas fa-arrow-right"></i> run optimization with progress</span></div>
+                    <div class="cmd-entry"><span class="cmd-name">services</span><span class="cmd-desc"><i class="fas fa-arrow-right"></i> top 3 recommended services</span></div>
+                    <div class="cmd-entry"><span class="cmd-name">languages</span><span class="cmd-desc"><i class="fas fa-arrow-right"></i> scripting pipeline overview</span></div>
+                    <div class="cmd-entry"><span class="cmd-name">tools</span><span class="cmd-desc"><i class="fas fa-arrow-right"></i> detailed tool breakdown</span></div>
+                    <div class="cmd-entry"><span class="cmd-name">relax</span><span class="cmd-desc"><i class="fas fa-arrow-right"></i> bouncing ball animation</span></div>
+                    <div class="cmd-entry"><span class="cmd-name">clear</span><span class="cmd-desc"><i class="fas fa-arrow-right"></i> clear console output</span></div>
+                </div>
+            </div>
+
+            <div class="divider-line"></div>
+
+            <!-- ===== CONTACT ===== -->
+            <div id="contact">
+                <div class="section-head">
+                    <h2>Contact <span class="gold-accent">Us</span></h2>
+                    <div class="sub">— we respond within 12 hours —</div>
+                </div>
+                <div class="contact-area">
+                    <div class="contact-detail">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:sigmaperformance.tech@gmail.com?subject=PC%20Optimization%20Inquiry">sigmaperformance.tech@gmail.com</a>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:+18197128461">+1 (819) 712-8461</a>
+                    </div>
+                    <div class="contact-detail">
+                        <i class="fas fa-map-pin"></i>
+                        <span>Ottawa, ON · Global Reach</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== FOOTER ===== -->
+            <div class="footer">
+                <span>&copy; 2026 SigmaPerformance · Professional PC Optimization</span>
+                <span><a href="mailto:sigmaperformance.tech@gmail.com?subject=PC%20Optimization%20Inquiry">Email us</a></span>
+            </div>
+
         </div>
+        <!-- end frame -->
+    </div>
+    <!-- end container -->
 
-        <!-- ===== FOOTER ===== -->
-        <div class="footer">
-            <span>&copy; 2026 SigmaPerformance · Professional PC Optimization</span>
-            <span><a href="mailto:sigmaperformance.tech@gmail.com?subject=PC%20Optimization%20Inquiry">Email us</a></span>
-        </div>
+    <script>
+        (function() {
+            const outputArea = document.getElementById('outputArea');
+            const cmdInput = document.getElementById('cmdInput');
 
-    </div> <!-- end frame -->
-</div> <!-- end container -->
+            // ---- The console starts empty - no welcome message ----
 
-<script>
-    (function() {
-        const outputArea = document.getElementById('outputArea');
-        const cmdInput = document.getElementById('cmdInput');
-
-        // ----- Console starts EMPTY. No static welcome text. -----
-
-        // ----- Command Logic -----
-        const commandList = `
-Available commands:
-  sigma performance   – Run optimization animation (progress + steps)
-  services            – Top 3 recommended services with reasoning
-  languages           – Scripting pipeline (Answer File → Batch → PowerShell)
-  tools               – Detailed purpose of each tool
-  relax               – Soothing bouncing ball with squash & stretch
-  clear               – Clear interactive output
-`;
-
-        function appendOutput(html, className = '') {
-            const div = document.createElement('div');
-            div.className = className;
-            div.innerHTML = html;
-            outputArea.appendChild(div);
-            outputArea.scrollTop = outputArea.scrollHeight;
-        }
-
-        function appendLine(text, isCommand = false) {
-            if (isCommand) {
-                appendOutput(`<span class="prompt-cmd">C:\\sigma&gt;</span> <span class="cmd-text">${text}</span>`, 'line');
-            } else {
-                appendOutput(`<span class="output">${text}</span>`, 'output');
-            }
-        }
-
-        function clearInteractive() {
-            stopRelax();
-            outputArea.innerHTML = '';
-        }
-
-        // ----- Relax Logic -----
-        let relaxInterval = null;
-        let relaxContainer = null;
-        let ballElement = null;
-        let deformTimeout = null;
-
-        function startRelax() {
-            clearInteractive();
-            const monitor = document.createElement('div');
-            monitor.className = 'relax-monitor';
-            outputArea.appendChild(monitor);
-
-            const ball = document.createElement('div');
-            ball.className = 'ball';
-            monitor.appendChild(ball);
-            ballElement = ball;
-            relaxContainer = monitor;
-
-            let x = 10, y = 10;
-            let dx = 1.8, dy = 1.4;
-
-            function applyDeform(scaleX, scaleY) {
-                if (!ballElement) return;
-                if (deformTimeout) clearTimeout(deformTimeout);
-                ballElement.style.transform = `scale(${scaleX}, ${scaleY})`;
-                deformTimeout = setTimeout(() => {
-                    if (ballElement) ballElement.style.transform = 'scale(1, 1)';
-                    deformTimeout = null;
-                }, 150);
+            function appendOutput(html, className = '') {
+                const div = document.createElement('div');
+                if (className) div.className = className;
+                div.innerHTML = html;
+                outputArea.appendChild(div);
+                outputArea.scrollTop = outputArea.scrollHeight;
             }
 
-            function moveBall() {
-                if (!ballElement || !relaxContainer) return;
-                const cw = relaxContainer.clientWidth;
-                const ch = relaxContainer.clientHeight;
-                const bs = ballElement.offsetWidth || 30;
-                let px = (x / 100) * cw;
-                let py = (y / 100) * ch;
-                px += dx; py += dy;
-                if (px <= 0) { px = 0; dx = -dx; applyDeform(0.7, 1.3); }
-                else if (px >= cw - bs) { px = cw - bs; dx = -dx; applyDeform(0.7, 1.3); }
-                if (py <= 0) { py = 0; dy = -dy; applyDeform(1.3, 0.7); }
-                else if (py >= ch - bs) { py = ch - bs; dy = -dy; applyDeform(1.3, 0.7); }
-                x = (px / cw) * 100;
-                y = (py / ch) * 100;
-                ballElement.style.left = x + '%';
-                ballElement.style.top = y + '%';
+            function appendLine(text, isCommand = false) {
+                if (isCommand) {
+                    appendOutput(`<span class="prompt-cmd">C:\\sigma&gt;</span> <span class="cmd-text">${text}</span>`, 'line');
+                } else {
+                    appendOutput(`<span class="output">${text}</span>`, 'output');
+                }
             }
 
-            if (relaxInterval) clearInterval(relaxInterval);
-            relaxInterval = setInterval(moveBall, 30);
+            function clearInteractive() {
+                stopRelax();
+                outputArea.innerHTML = '';
+            }
 
-            const sub = document.createElement('div');
-            sub.className = 'relax-sub';
-            sub.textContent = '✦ relax ✦';
-            outputArea.appendChild(sub);
-            outputArea.scrollTop = outputArea.scrollHeight;
-        }
+            // ----- Relax Logic -----
+            let relaxInterval = null;
+            let relaxContainer = null;
+            let ballElement = null;
+            let deformTimeout = null;
 
-        function stopRelax() {
-            if (relaxInterval) { clearInterval(relaxInterval); relaxInterval = null; }
-            if (deformTimeout) { clearTimeout(deformTimeout); deformTimeout = null; }
-            relaxContainer = null; ballElement = null;
-        }
+            function startRelax() {
+                clearInteractive();
+                const monitor = document.createElement('div');
+                monitor.className = 'relax-monitor';
+                outputArea.appendChild(monitor);
 
-        // ----- Optimization Animation -----
-        function runOptimization() {
-            stopRelax();
-            clearInteractive();
-            const steps = [
-                { msg: 'Initializing optimization engine...', delay: 300 },
-                { msg: 'Scanning registry for performance bottlenecks...', delay: 400 },
-                { msg: 'Applying advanced performance tweaks...', delay: 500 },
-                { msg: 'Optimizing startup items and background services...', delay: 400 },
-                { msg: 'Cleaning temporary files and system cache...', delay: 400 },
-                { msg: 'Calibrating power plan for maximum efficiency...', delay: 400 },
-                { msg: 'Optimization complete! <span class="highlight">32%</span> performance improvement.', delay: 300 }
-            ];
-            cmdInput.disabled = true;
-            cmdInput.style.opacity = '0.5';
+                const ball = document.createElement('div');
+                ball.className = 'ball';
+                monitor.appendChild(ball);
+                ballElement = ball;
+                relaxContainer = monitor;
 
-            let progress = 0;
-            const progressHtml = `
+                let x = 10,
+                    y = 10;
+                let dx = 1.8,
+                    dy = 1.4;
+
+                function applyDeform(scaleX, scaleY) {
+                    if (!ballElement) return;
+                    if (deformTimeout) clearTimeout(deformTimeout);
+                    ballElement.style.transform = `scale(${scaleX}, ${scaleY})`;
+                    deformTimeout = setTimeout(() => {
+                        if (ballElement) ballElement.style.transform = 'scale(1, 1)';
+                        deformTimeout = null;
+                    }, 150);
+                }
+
+                function moveBall() {
+                    if (!ballElement || !relaxContainer) return;
+                    const cw = relaxContainer.clientWidth;
+                    const ch = relaxContainer.clientHeight;
+                    const bs = ballElement.offsetWidth || 30;
+                    let px = (x / 100) * cw;
+                    let py = (y / 100) * ch;
+                    px += dx;
+                    py += dy;
+                    if (px <= 0) { px = 0;
+                        dx = -dx;
+                        applyDeform(0.7, 1.3); } else if (px >= cw - bs) { px = cw - bs;
+                        dx = -dx;
+                        applyDeform(0.7, 1.3); }
+                    if (py <= 0) { py = 0;
+                        dy = -dy;
+                        applyDeform(1.3, 0.7); } else if (py >= ch - bs) { py = ch - bs;
+                        dy = -dy;
+                        applyDeform(1.3, 0.7); }
+                    x = (px / cw) * 100;
+                    y = (py / ch) * 100;
+                    ballElement.style.left = x + '%';
+                    ballElement.style.top = y + '%';
+                }
+
+                if (relaxInterval) clearInterval(relaxInterval);
+                relaxInterval = setInterval(moveBall, 30);
+
+                const sub = document.createElement('div');
+                sub.className = 'relax-sub';
+                sub.textContent = '✦ relax ✦';
+                outputArea.appendChild(sub);
+                outputArea.scrollTop = outputArea.scrollHeight;
+            }
+
+            function stopRelax() {
+                if (relaxInterval) { clearInterval(relaxInterval);
+                    relaxInterval = null; }
+                if (deformTimeout) { clearTimeout(deformTimeout);
+                    deformTimeout = null; }
+                relaxContainer = null;
+                ballElement = null;
+            }
+
+            // ----- Optimization Animation -----
+            function runOptimization() {
+                stopRelax();
+                clearInteractive();
+                const steps = [
+                    { msg: 'Initializing optimization engine...', delay: 300 },
+                    { msg: 'Scanning registry for performance bottlenecks...', delay: 400 },
+                    { msg: 'Applying advanced performance tweaks...', delay: 500 },
+                    { msg: 'Optimizing startup items and background services...', delay: 400 },
+                    { msg: 'Cleaning temporary files and system cache...', delay: 400 },
+                    { msg: 'Calibrating power plan for maximum efficiency...', delay: 400 },
+                    { msg: 'Optimization complete! <span class="highlight">32%</span> performance improvement.', delay: 300 }
+                ];
+                cmdInput.disabled = true;
+                cmdInput.style.opacity = '0.5';
+
+                let progress = 0;
+                const progressHtml = `
                 <div class="progress-container">
                     <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%;"></div></div>
                     <span class="progress-label" id="progressLabel">0%</span>
                 </div>
-            `;
-            const progDiv = document.createElement('div');
-            progDiv.className = 'output';
-            progDiv.innerHTML = progressHtml;
-            outputArea.appendChild(progDiv);
-            outputArea.scrollTop = outputArea.scrollHeight;
+                `;
+                const progDiv = document.createElement('div');
+                progDiv.className = 'output';
+                progDiv.innerHTML = progressHtml;
+                outputArea.appendChild(progDiv);
+                outputArea.scrollTop = outputArea.scrollHeight;
 
-            let stepIndex = 0;
-            const intervalId = setInterval(() => {
-                if (stepIndex < steps.length) {
-                    const step = steps[stepIndex];
-                    const msgDiv = document.createElement('div');
-                    msgDiv.className = 'output';
-                    msgDiv.innerHTML = `<i class="fas fa-spinner fa-spin" style="color:#c9a84c;"></i> ${step.msg}`;
-                    outputArea.appendChild(msgDiv);
-                    outputArea.scrollTop = outputArea.scrollHeight;
-                    progress = Math.min(100, (stepIndex + 1) / steps.length * 100);
-                    const fill = document.getElementById('progressFill');
-                    const label = document.getElementById('progressLabel');
-                    if (fill) fill.style.width = progress + '%';
-                    if (label) label.textContent = Math.round(progress) + '%';
-                    stepIndex++;
-                } else {
-                    clearInterval(intervalId);
-                    cmdInput.disabled = false;
-                    cmdInput.style.opacity = '1';
-                    cmdInput.focus();
-                    const finalMsg = document.createElement('div');
-                    finalMsg.className = 'output';
-                    finalMsg.innerHTML = `<i class="fas fa-check-circle" style="color:#c9a84c;"></i> <span class="highlight">System ready.</span>`;
-                    outputArea.appendChild(finalMsg);
-                    outputArea.scrollTop = outputArea.scrollHeight;
-                }
-            }, 600);
-        }
+                let stepIndex = 0;
+                const intervalId = setInterval(() => {
+                    if (stepIndex < steps.length) {
+                        const step = steps[stepIndex];
+                        const msgDiv = document.createElement('div');
+                        msgDiv.className = 'output';
+                        msgDiv.innerHTML = `<i class="fas fa-spinner fa-spin" style="color:#c9a84c;"></i> ${step.msg}`;
+                        outputArea.appendChild(msgDiv);
+                        outputArea.scrollTop = outputArea.scrollHeight;
+                        progress = Math.min(100, (stepIndex + 1) / steps.length * 100);
+                        const fill = document.getElementById('progressFill');
+                        const label = document.getElementById('progressLabel');
+                        if (fill) fill.style.width = progress + '%';
+                        if (label) label.textContent = Math.round(progress) + '%';
+                        stepIndex++;
+                    } else {
+                        clearInterval(intervalId);
+                        cmdInput.disabled = false;
+                        cmdInput.style.opacity = '1';
+                        cmdInput.focus();
+                        const finalMsg = document.createElement('div');
+                        finalMsg.className = 'output';
+                        finalMsg.innerHTML =
+                            `<i class="fas fa-check-circle" style="color:#c9a84c;"></i> <span class="highlight">System ready.</span>`;
+                        outputArea.appendChild(finalMsg);
+                        outputArea.scrollTop = outputArea.scrollHeight;
+                    }
+                }, 600);
+            }
 
-        // ----- Process Commands -----
-        function processCommand(input) {
-            const trimmed = input.trim();
-            if (!trimmed) return;
-            stopRelax();
-            appendLine(trimmed, true);
-            const lower = trimmed.toLowerCase();
+            // ----- Process Commands -----
+            function processCommand(input) {
+                const trimmed = input.trim();
+                if (!trimmed) return;
+                stopRelax();
+                appendLine(trimmed, true);
+                const lower = trimmed.toLowerCase();
 
-            if (lower === 'sigma') {
-                appendOutput(commandList.replace(/\n/g, '<br>'), 'output');
-            } else if (lower === 'sigma performance' || lower === 'performance') {
-                runOptimization();
-            } else if (lower === 'relax') {
-                startRelax();
-            } else if (lower === 'services') {
-                appendOutput(`
+                if (lower === 'sigma perf' || lower === 'sigma performance' || lower === 'performance') {
+                    runOptimization();
+                } else if (lower === 'relax') {
+                    startRelax();
+                } else if (lower === 'services') {
+                    appendOutput(`
                     <i class="fas fa-star" style="color:#c9a84c;"></i> <span class="highlight">Top 3 Services for Gamers & Power Users:</span><br>
                     <span style="padding-left:1.5rem; display:block;">
                         <span class="highlight-cyan">[6] Controller latency optimization</span> – Reduces input lag using HIDUSBF and polling rate tools. Essential for competitive gaming.<br>
                         <span class="highlight-cyan">[8] Overheating reduction</span> – Custom power plan scripts that lower CPU/GPU temps without losing performance.<br>
                         <span class="highlight-cyan">[1] Performance scripting</span> – Deep registry and service tweaks that give a permanent FPS boost.
                     </span>
-                `, 'output');
-            } else if (lower === 'languages') {
-                appendOutput(`
+                    `, 'output');
+                } else if (lower === 'languages') {
+                    appendOutput(`
                     <i class="fas fa-sitemap" style="color:#c9a84c;"></i> <span class="highlight">Our Scripting Pipeline:</span><br>
                     <span style="padding-left:1.5rem; display:block; color:#b9b3a8;">
                         <span class="highlight">Answer Files</span> (Unattended XML) → Deploy base Windows image<br>
@@ -974,9 +1214,9 @@ Available commands:
                         &nbsp;&nbsp;&nbsp;↓<br>
                         <span class="highlight">PowerShell</span> (.ps1) → Deep system tuning, service optimization, and health checks
                     </span>
-                `, 'output');
-            } else if (lower === 'tools') {
-                appendOutput(`
+                    `, 'output');
+                } else if (lower === 'tools') {
+                    appendOutput(`
                     <i class="fas fa-toolbox" style="color:#c9a84c;"></i> <span class="highlight">Tool Breakdown:</span><br>
                     <span style="padding-left:1.5rem; display:block; color:#b9b3a8;">
                         <span class="highlight-cyan">HIDUSBF</span> – USB input lag reduction & polling rate booster<br>
@@ -988,35 +1228,37 @@ Available commands:
                         <span class="highlight-cyan">Process Explorer</span> – Advanced task manager for debugging<br>
                         <span class="highlight-cyan">AnyDesk</span> – Remote support for quick fixes
                     </span>
-                `, 'output');
-            } else if (lower === 'clear') {
-                clearInteractive();
-            } else {
-                appendOutput(`<span class="dim">Command not recognized. Type <span class="highlight">sigma</span> for help.</span>`, 'output');
+                    `, 'output');
+                } else if (lower === 'clear') {
+                    clearInteractive();
+                } else {
+                    appendOutput(
+                        `<span class="dim">❌ Unknown command. See the legend below for available commands.</span>`,
+                        'output');
+                }
+                outputArea.scrollTop = outputArea.scrollHeight;
             }
-            outputArea.scrollTop = outputArea.scrollHeight;
-        }
 
-        // ----- Event Listeners -----
-        cmdInput.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const val = this.value;
-                processCommand(val);
-                this.value = '';
-                e.preventDefault();
-            }
-        });
+            // ----- Event Listeners -----
+            cmdInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    const val = this.value;
+                    processCommand(val);
+                    this.value = '';
+                    e.preventDefault();
+                }
+            });
 
-        window.addEventListener('load', function() {
-            cmdInput.focus();
-        });
+            window.addEventListener('load', function() {
+                cmdInput.focus();
+            });
 
-        document.querySelector('.terminal-window').addEventListener('click', function(e) {
-            if (e.target.tagName !== 'INPUT') cmdInput.focus();
-        });
+            document.querySelector('.terminal-window').addEventListener('click', function(e) {
+                if (e.target.tagName !== 'INPUT') cmdInput.focus();
+            });
 
-        console.log('SigmaPerformance Terminal ready. Try "relax" for a bouncing ball!');
-    })();
-</script>
+            console.log('SigmaPerformance Terminal ready. Commands listed in the legend below.');
+        })();
+    </script>
 </body>
 </html>

@@ -1400,7 +1400,7 @@
     <!-- end container -->
 
     <!-- ================================================================
-    MUSIC PLAYER – GENERATED CALM AMBIENT (Web Audio)
+    MUSIC PLAYER – IMPROVED GENERATIVE CALM AMBIENT (Web Audio)
     ================================================================ -->
     <div class="music-player" id="musicPlayer">
         <button class="player-btn" id="playBtn" title="Play / Pause calm music">
@@ -2082,39 +2082,37 @@
         })();
 
         // ================================================================
-        //  CALM BACKGROUND MUSIC – Web Audio Generative Ambient
-        //  Inspired by: Chillwave, Lo-fi, Ambient soundscapes
-        //  No external files – works reliably in all browsers
+        //  CALM BACKGROUND MUSIC – Improved Reliability
+        //  Uses Web Audio generative ambient with robust state management
         // ================================================================
         (function() {
+            // ----- Audio state -----
             let audioCtx = null;
             let isPlaying = false;
             let isInitialized = false;
             let masterGain = null;
             let reverbNode = null;
             let delayNode = null;
-            let filterNode = null;
             let scheduleTimeout = null;
             let droneOscillators = [];
             let droneGains = [];
             let isScheduled = false;
+            let startPromise = null; // to avoid overlapping starts
 
-            const volumeSlider = document.getElementById('volumeSlider');
+            // ----- DOM refs -----
             const playBtn = document.getElementById('playBtn');
             const playIcon = document.getElementById('playIcon');
             const playerStatus = document.getElementById('playerStatus');
+            const volumeSlider = document.getElementById('volumeSlider');
+            const musicPlayerEl = document.querySelector('.music-player');
 
-            // ----- Music parameters -----
+            // ----- Music parameters (ultra-calm) -----
             const BPM = 52;
             const SECONDS_PER_BEAT = 60 / BPM;
             const STEPS_PER_BAR = 16;
             const BARS = 4;
             const TOTAL_STEPS = STEPS_PER_BAR * BARS;
-            const LOOP_INTERVAL = TOTAL_STEPS * SECONDS_PER_BEAT / 4;
-
-            // Pentatonic scale: C4, D4, E4, G4, A4
             const SCALE = [261.63, 293.66, 329.63, 392.00, 440.00];
-            // Simple, calm arpeggio pattern
             const MELODY = [
                 [0, 1, 0.5],
                 [2, 0.5, 0.3],
@@ -2133,67 +2131,78 @@
                 [1, 0.5, 0.25],
                 [4, 1, 0.4]
             ];
-
-            // Drone: C - E - G
             const DRONE_FREQS = [261.63, 329.63, 392.00];
 
-            // ----- Initialize Audio Context -----
+            // ----- Initialize audio context -----
             function initAudio() {
-                if (isInitialized) return;
-                try {
-                    audioCtx = new(window.AudioContext || window.webkitAudioContext)();
+                if (isInitialized) return Promise.resolve();
+                return new Promise((resolve, reject) => {
+                    try {
+                        audioCtx = new(window.AudioContext || window.webkitAudioContext)();
 
-                    masterGain = audioCtx.createGain();
-                    masterGain.gain.value = volumeSlider.value / 100 * 0.10;
-                    masterGain.connect(audioCtx.destination);
+                        // Master gain
+                        masterGain = audioCtx.createGain();
+                        masterGain.gain.value = volumeSlider.value / 100 * 0.10;
+                        masterGain.connect(audioCtx.destination);
 
-                    // Reverb (convolution with simple impulse)
-                    reverbNode = audioCtx.createConvolver();
-                    const irLength = audioCtx.sampleRate * 2.0;
-                    const irBuffer = audioCtx.createBuffer(2, irLength, audioCtx.sampleRate);
-                    const irDataL = irBuffer.getChannelData(0);
-                    const irDataR = irBuffer.getChannelData(1);
-                    for (let i = 0; i < irLength; i++) {
-                        const decay = Math.exp(-i / (audioCtx.sampleRate * 0.7));
-                        const noise = (Math.random() * 2 - 1) * 0.12;
-                        const val = noise * decay;
-                        irDataL[i] = val;
-                        irDataR[i] = val * 0.9;
-                    }
-                    // Early reflections
-                    for (let i = 0; i < 8; i++) {
-                        const pos = Math.floor(audioCtx.sampleRate * (0.03 + i * 0.035));
-                        if (pos < irLength) {
-                            irDataL[pos] += (0.3 - i * 0.03) * (Math.random() * 0.3 + 0.2);
-                            irDataR[pos] += (0.3 - i * 0.03) * (Math.random() * 0.3 + 0.2);
+                        // Reverb
+                        reverbNode = audioCtx.createConvolver();
+                        const irLength = audioCtx.sampleRate * 2.0;
+                        const irBuffer = audioCtx.createBuffer(2, irLength, audioCtx.sampleRate);
+                        const irDataL = irBuffer.getChannelData(0);
+                        const irDataR = irBuffer.getChannelData(1);
+                        for (let i = 0; i < irLength; i++) {
+                            const decay = Math.exp(-i / (audioCtx.sampleRate * 0.7));
+                            const noise = (Math.random() * 2 - 1) * 0.12;
+                            const val = noise * decay;
+                            irDataL[i] = val;
+                            irDataR[i] = val * 0.9;
                         }
+                        for (let i = 0; i < 8; i++) {
+                            const pos = Math.floor(audioCtx.sampleRate * (0.03 + i * 0.035));
+                            if (pos < irLength) {
+                                irDataL[pos] += (0.3 - i * 0.03) * (Math.random() * 0.3 + 0.2);
+                                irDataR[pos] += (0.3 - i * 0.03) * (Math.random() * 0.3 + 0.2);
+                            }
+                        }
+                        reverbNode.buffer = irBuffer;
+                        reverbNode.connect(masterGain);
+
+                        // Delay
+                        delayNode = audioCtx.createDelay(2.0);
+                        delayNode.delayTime.value = 0.5;
+                        const delayFeedback = audioCtx.createGain();
+                        delayFeedback.gain.value = 0.22;
+                        const delayFilter = audioCtx.createBiquadFilter();
+                        delayFilter.type = 'lowpass';
+                        delayFilter.frequency.value = 1100;
+                        delayNode.connect(delayFilter);
+                        delayFilter.connect(delayFeedback);
+                        delayFeedback.connect(delayNode);
+                        delayNode.connect(masterGain);
+                        delayNode.connect(reverbNode);
+
+                        isInitialized = true;
+                        resolve();
+                    } catch (e) {
+                        console.warn('Web Audio init error:', e);
+                        reject(e);
                     }
-                    reverbNode.buffer = irBuffer;
-                    reverbNode.connect(masterGain);
+                });
+            }
 
-                    // Delay
-                    delayNode = audioCtx.createDelay(2.0);
-                    delayNode.delayTime.value = 0.5;
-                    const delayFeedback = audioCtx.createGain();
-                    delayFeedback.gain.value = 0.22;
-                    const delayFilter = audioCtx.createBiquadFilter();
-                    delayFilter.type = 'lowpass';
-                    delayFilter.frequency.value = 1100;
-                    delayNode.connect(delayFilter);
-                    delayFilter.connect(delayFeedback);
-                    delayFeedback.connect(delayNode);
-                    delayNode.connect(masterGain);
-                    delayNode.connect(reverbNode);
-
-                    isInitialized = true;
-                } catch (e) {
-                    console.warn('Web Audio not supported:', e);
+            // ----- Resume context if suspended -----
+            function ensureContextRunning() {
+                if (!audioCtx) return Promise.reject('No context');
+                if (audioCtx.state === 'suspended') {
+                    return audioCtx.resume();
                 }
+                return Promise.resolve();
             }
 
             // ----- Play a note -----
             function playNote(freq, duration, velocity, delay = 0) {
-                if (!audioCtx || audioCtx.state === 'suspended') return;
+                if (!audioCtx || audioCtx.state !== 'running') return;
                 const osc = audioCtx.createOscillator();
                 const gain = audioCtx.createGain();
                 const filter = audioCtx.createBiquadFilter();
@@ -2218,7 +2227,7 @@
 
             // ----- Drone -----
             function startDrone() {
-                if (!audioCtx || audioCtx.state === 'suspended') return;
+                if (!audioCtx || audioCtx.state !== 'running') return;
                 stopDrone();
                 DRONE_FREQS.forEach((freq, idx) => {
                     const osc = audioCtx.createOscillator();
@@ -2258,7 +2267,7 @@
 
             // ----- Schedule melody -----
             function scheduleMelody() {
-                if (!audioCtx || audioCtx.state === 'suspended' || !isPlaying) return;
+                if (!audioCtx || audioCtx.state !== 'running' || !isPlaying) return;
                 const stepDuration = SECONDS_PER_BEAT / 4;
                 for (let step = 0; step < TOTAL_STEPS; step++) {
                     const patternIdx = step % MELODY.length;
@@ -2279,38 +2288,67 @@
                 }
                 const loopDuration = TOTAL_STEPS * stepDuration;
                 scheduleTimeout = setTimeout(() => {
-                    if (isPlaying && audioCtx && audioCtx.state !== 'suspended') {
+                    if (isPlaying && audioCtx && audioCtx.state === 'running') {
                         scheduleMelody();
                     }
                 }, loopDuration * 1000 + 50);
             }
 
             // ----- Start / Stop -----
-            function startMusic() {
-                if (!isInitialized) {
-                    initAudio();
-                    if (!isInitialized) return;
-                }
-                if (audioCtx.state === 'suspended') audioCtx.resume();
+            async function startMusic() {
                 if (isPlaying) return;
+
+                // Ensure initialized
+                if (!isInitialized) {
+                    try {
+                        await initAudio();
+                    } catch (e) {
+                        console.warn('Failed to init audio:', e);
+                        return;
+                    }
+                }
+
+                // Ensure context running
+                try {
+                    await ensureContextRunning();
+                } catch (e) {
+                    console.warn('Failed to resume context:', e);
+                    return;
+                }
+
+                // Double-check after async
+                if (isPlaying) return;
+                if (!audioCtx || audioCtx.state !== 'running') {
+                    console.warn('Context not running, cannot start');
+                    return;
+                }
+
                 isPlaying = true;
                 playIcon.className = 'fas fa-pause';
                 playerStatus.textContent = 'on';
+                musicPlayerEl.style.borderColor = '#c9a84c';
+
+                // Restore volume
+                masterGain.gain.value = volumeSlider.value / 100 * 0.10;
+
                 startDrone();
                 scheduleMelody();
-                document.querySelector('.music-player').style.borderColor = '#c9a84c';
             }
 
-            function stopMusic() {
+            async function stopMusic() {
                 if (!isPlaying) return;
                 isPlaying = false;
                 playIcon.className = 'fas fa-play';
                 playerStatus.textContent = 'off';
+                musicPlayerEl.style.borderColor = '#2a2e36';
+
                 if (scheduleTimeout) {
                     clearTimeout(scheduleTimeout);
                     scheduleTimeout = null;
                 }
                 stopDrone();
+
+                // Fade master
                 if (masterGain) {
                     const now = audioCtx.currentTime;
                     masterGain.gain.linearRampToValueAtTime(0, now + 0.8);
@@ -2318,14 +2356,17 @@
                         if (masterGain) masterGain.gain.value = volumeSlider.value / 100 * 0.10;
                     }, 900);
                 }
-                document.querySelector('.music-player').style.borderColor = '#2a2e36';
             }
 
-            function toggleMusic() {
-                if (isPlaying) stopMusic();
-                else startMusic();
+            async function toggleMusic() {
+                if (isPlaying) {
+                    await stopMusic();
+                } else {
+                    await startMusic();
+                }
             }
 
+            // ----- Volume -----
             function setVolume(val) {
                 const vol = Math.min(100, Math.max(0, val));
                 volumeSlider.value = vol;
@@ -2337,16 +2378,18 @@
             // ----- Event listeners -----
             playBtn.addEventListener('click', function(e) {
                 e.stopPropagation();
-                toggleMusic();
+                toggleMusic().catch(e => console.warn('Toggle error:', e));
             });
 
             volumeSlider.addEventListener('input', function() {
                 setVolume(parseInt(this.value));
             });
 
-            // Auto-init on first interaction
+            // Auto-init on first user interaction (click, touch, key)
             const initOnInteraction = function() {
-                if (!isInitialized) initAudio();
+                if (!isInitialized) {
+                    initAudio().catch(() => {});
+                }
                 document.removeEventListener('click', initOnInteraction);
                 document.removeEventListener('touchstart', initOnInteraction);
                 document.removeEventListener('keydown', initOnInteraction);
@@ -2355,19 +2398,21 @@
             document.addEventListener('touchstart', initOnInteraction);
             document.addEventListener('keydown', initOnInteraction);
 
-            // Also init on play button click
+            // Also init on play button click if not already
             playBtn.addEventListener('click', function() {
-                if (!isInitialized) initAudio();
+                if (!isInitialized) {
+                    initAudio().catch(() => {});
+                }
             });
 
+            // Cleanup
             window.addEventListener('beforeunload', function() {
                 if (isPlaying) stopMusic();
                 if (audioCtx) try { audioCtx.close(); } catch (e) {}
             });
 
-            console.log('🎵 Calm ambient music started (generated via Web Audio)');
-            console.log('   Inspired by chillwave, lo-fi, and ambient soundscapes.');
-            console.log('   Tap the play button to start/stop.');
+            console.log('🎵 Calm ambient music (Web Audio) – improved reliability');
+            console.log('   Click the play button to start the soothing soundscape.');
 
             window.__music = {
                 toggle: toggleMusic,
@@ -2551,7 +2596,7 @@
         console.log('SigmaPerformance · Dreamscape loaded.');
         console.log('✨ Modes: mandala, aurora, tesseract, fractal');
         console.log('🖥️  Terminal: commands: sigma perf, services, languages, tools, clear');
-        console.log('🎵  Music: generated ambient (chillwave · lo-fi · relaxing)');
+        console.log('🎵  Music: generated ambient – click the play button to start.');
     </script>
 </body>
 </html>

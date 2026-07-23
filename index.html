@@ -30,7 +30,6 @@
             overflow-x: hidden;
         }
 
-        /* ---------- MATRIX BG ---------- */
         .matrix-bg {
             position: fixed;
             top: 0;
@@ -102,7 +101,6 @@
             z-index: 10;
         }
 
-        /* ---------- FRAME ---------- */
         .frame {
             border: 2px solid #2a2e36;
             border-radius: 12px;
@@ -129,7 +127,6 @@
             pointer-events: none;
         }
 
-        /* ---------- TYPOGRAPHY ---------- */
         h1,
         h2,
         h3,
@@ -754,7 +751,7 @@
             margin-left: 0.5rem;
         }
 
-        /* ---------- COMMAND LEGEND (reduced) ---------- */
+        /* ---------- COMMAND LEGEND ---------- */
         .command-legend {
             margin: 1.2rem 0 0.5rem 0;
             border: 1px solid #1a1f26;
@@ -1095,24 +1092,6 @@
                         <h3 data-i18n="service.11.title">System Health</h3>
                         <p data-i18n="service.11.desc">Windows updates &amp; system health monitoring.</p>
                     </div>
-                    <div class="service-card">
-                        <span class="service-num">[12]</span>
-                        <i class="fas fa-brain icon"></i>
-                        <h3 data-i18n="service.12.title">Kernel-Level Tuning</h3>
-                        <p data-i18n="service.12.desc">Deep kernel optimization, context switching, and interrupt priority.</p>
-                    </div>
-                    <div class="service-card">
-                        <span class="service-num">[13]</span>
-                        <i class="fas fa-compress-alt icon"></i>
-                        <h3 data-i18n="service.13.title">Memory Compression</h3>
-                        <p data-i18n="service.13.desc">Advanced memory management &amp; compression algorithms.</p>
-                    </div>
-                    <div class="service-card">
-                        <span class="service-num">[14]</span>
-                        <i class="fas fa-network-wired icon"></i>
-                        <h3 data-i18n="service.14.title">Network Stack Acceleration</h3>
-                        <p data-i18n="service.14.desc">TCP/IP optimization, MTU tuning, and latency reduction.</p>
-                    </div>
                 </div>
             </div>
 
@@ -1131,8 +1110,6 @@
                             <span class="spec-item">Answer File</span>
                             <span class="spec-item">Batch</span>
                             <span class="spec-item">PowerShell</span>
-                            <span class="spec-item">C++</span>
-                            <span class="spec-item">Assembly</span>
                         </div>
                     </div>
                     <div>
@@ -1148,8 +1125,6 @@
                             <span class="spec-item">BCUninstaller</span>
                             <span class="spec-item">Process Explorer</span>
                             <span class="spec-item">AnyDesk</span>
-                            <span class="spec-item">WinDbg</span>
-                            <span class="spec-item">Sysinternals</span>
                         </div>
                     </div>
                 </div>
@@ -1212,7 +1187,7 @@
                     </div>
                 </div>
 
-                <!-- ===== COMMAND LEGEND (reduced) ===== -->
+                <!-- ===== COMMAND LEGEND ===== -->
                 <div class="command-legend">
                     <div class="legend-title" data-i18n="terminal.legend.title"><i class="fas fa-terminal" style="margin-right:0.5rem; color:#c9a84c;"></i> available commands</div>
                     <div class="cmd-entry"><span class="cmd-name">sigma perf</span><span class="cmd-desc" data-i18n="terminal.cmd.perf"><i class="fas fa-arrow-right"></i> run optimization with progress</span></div>
@@ -1278,7 +1253,7 @@
         })();
 
         // ================================================================
-        //  I18N – ONLY EN, FR, ES (DE REMOVED)
+        //  I18N
         // ================================================================
         const TRANSLATIONS = {
             en: {
@@ -1321,12 +1296,6 @@
                 'service.10.desc': 'Drive cleanup & maintenance (PowerShell/CMD).',
                 'service.11.title': 'System Health',
                 'service.11.desc': 'Windows updates & system health monitoring.',
-                'service.12.title': 'Kernel-Level Tuning',
-                'service.12.desc': 'Deep kernel optimization, context switching, and interrupt priority.',
-                'service.13.title': 'Memory Compression',
-                'service.13.desc': 'Advanced memory management & compression algorithms.',
-                'service.14.title': 'Network Stack Acceleration',
-                'service.14.desc': 'TCP/IP optimization, MTU tuning, and latency reduction.',
                 'tools.title': '<span class="gold-accent">Tools</span> & Languages',
                 'tools.sub': '— what we use —',
                 'tools.languages': 'Languages',
@@ -1395,12 +1364,6 @@
                 'service.10.desc': 'Nettoyage et maintenance du disque (PowerShell/CMD).',
                 'service.11.title': 'Santé du système',
                 'service.11.desc': 'Mises à jour et surveillance de la santé du système.',
-                'service.12.title': 'Optimisation du noyau',
-                'service.12.desc': 'Optimisation profonde du noyau, commutation de contexte et priorité des interruptions.',
-                'service.13.title': 'Compression mémoire',
-                'service.13.desc': 'Gestion avancée de la mémoire et algorithmes de compression.',
-                'service.14.title': 'Accélération réseau',
-                'service.14.desc': 'Optimisation TCP/IP, réglage MTU et réduction de la latence.',
                 'tools.title': '<span class="gold-accent">Outils</span> & langages',
                 'tools.sub': '— ce que nous utilisons —',
                 'tools.languages': 'Langages',
@@ -1469,12 +1432,6 @@
                 'service.10.desc': 'Limpieza y mantenimiento de disco (PowerShell/CMD).',
                 'service.11.title': 'Salud del sistema',
                 'service.11.desc': 'Actualizaciones y monitoreo de la salud del sistema.',
-                'service.12.title': 'Ajuste a nivel de kernel',
-                'service.12.desc': 'Optimización profunda del kernel, cambio de contexto y prioridad de interrupciones.',
-                'service.13.title': 'Compresión de memoria',
-                'service.13.desc': 'Gestión avanzada de memoria y algoritmos de compresión.',
-                'service.14.title': 'Aceleración de red',
-                'service.14.desc': 'Optimización TCP/IP, ajuste de MTU y reducción de latencia.',
                 'tools.title': '<span class="gold-accent">Herramientas</span> & Idiomas',
                 'tools.sub': '— lo que usamos —',
                 'tools.languages': 'Idiomas',
@@ -1505,9 +1462,6 @@
             }
         };
 
-        // ================================================================
-        //  I18N – ENGINE
-        // ================================================================
         let currentLang = 'en';
 
         function getTranslation(key) {
@@ -1532,16 +1486,13 @@
             }
         }
 
-        // Language switcher – no focus on input to avoid scrolling
         document.getElementById('langSelect').addEventListener('change', function() {
             setLanguage(this.value);
-            // Do NOT focus the command input – keeps page from scrolling to console
         });
-
         applyTranslations();
 
         // ================================================================
-        //  DREAMSCAPE – BEYOND IMAGINATION (no nebula)
+        //  DREAMSCAPE – BEYOND IMAGINATION
         // ================================================================
         (function() {
             const canvas = document.getElementById('dreamCanvas');
@@ -1553,7 +1504,6 @@
             let stars = [];
             let frameCount = 0;
 
-            // ---- resize ----
             function resize() {
                 const rect = canvas.parentElement.getBoundingClientRect();
                 dpr = window.devicePixelRatio || 1;
@@ -1581,7 +1531,6 @@
                 }
             }
 
-            // ---- palettes (no nebula) ----
             const palettes = {
                 mandala: { bg: [5, 6, 8], colors: [
                         [201, 168, 76],
@@ -1619,7 +1568,6 @@
                 return [c1[0] + (c2[0] - c1[0]) * t, c1[1] + (c2[1] - c1[1]) * t, c1[2] + (c2[2] - c1[2]) * t];
             }
 
-            // ---- render modes (no nebula) ----
             function renderMandala(t) {
                 const pal = getPalette();
                 const cx = W / 2,
@@ -1839,7 +1787,6 @@
                 }
             }
 
-            // ---- main render loop ----
             function render() {
                 ctx.setTransform(1, 0, 0, 1, 0, 0);
                 ctx.scale(dpr, dpr);
@@ -1883,7 +1830,6 @@
                 animId = requestAnimationFrame(render);
             }
 
-            // ---- mode switching ----
             function setDreamMode(newMode) {
                 if (newMode === mode) return;
                 mode = newMode;
@@ -1902,29 +1848,19 @@
                 if (label) label.textContent = names[mode] || 'Mandala';
             }
 
-            function getDreamMode() { return mode; }
-
-            // ---- init ----
             function initDreamscape() {
                 resize();
                 window.addEventListener('resize', resize);
                 document.querySelectorAll('.dream-btn').forEach(btn => {
                     btn.addEventListener('click', function(e) {
-                        e.preventDefault();  // prevent any default action
+                        e.preventDefault();
                         setDreamMode(this.dataset.mode);
-                        // Do NOT focus the input to avoid scrolling
                     });
                 });
                 if (animId) cancelAnimationFrame(animId);
                 time = 0;
                 render();
             }
-
-            // expose
-            window.__dream = {
-                setMode: setDreamMode,
-                getMode: getDreamMode
-            };
 
             if (document.readyState === 'complete') {
                 initDreamscape();
@@ -1935,7 +1871,7 @@
         })();
 
         // ================================================================
-        //  TERMINAL ENGINE – REDUCED COMMANDS (no auto-focus on load)
+        //  TERMINAL ENGINE
         // ================================================================
         (function() {
             const outputArea = document.getElementById('outputArea');
@@ -1961,7 +1897,6 @@
                 outputArea.innerHTML = '';
             }
 
-            // ---- Optimization ----
             function runOptimization() {
                 clearInteractive();
                 const msgs = {
@@ -2016,7 +1951,6 @@
                         clearInterval(intervalId);
                         cmdInput.disabled = false;
                         cmdInput.style.opacity = '1';
-                        // We don't focus automatically to avoid scrolling
                         const finalMsg = document.createElement('div');
                         finalMsg.className = 'output';
                         finalMsg.innerHTML =
@@ -2027,7 +1961,6 @@
                 }, 600);
             }
 
-            // ---- Handlers ----
             function handleServices() {
                 appendOutput(`
                 <i class="fas fa-star" style="color:#c9a84c;"></i> <span class="highlight">Top 3 Services for Gamers & Power Users:</span><br>
@@ -2068,7 +2001,6 @@
                 `, 'output');
             }
 
-            // ---- Process ----
             function processCommand(input) {
                 const trimmed = input.trim();
                 if (!trimmed) return;
@@ -2093,7 +2025,6 @@
                 outputArea.scrollTop = outputArea.scrollHeight;
             }
 
-            // ---- Events ----
             cmdInput.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter') {
                     const val = this.value;
@@ -2103,19 +2034,15 @@
                 }
             });
 
-            // No automatic focus on page load – user can click the input if they want.
-            // We also remove the window load focus listener.
-
             document.querySelector('.terminal-window').addEventListener('click', function(e) {
                 if (e.target.tagName !== 'INPUT') cmdInput.focus();
             });
 
         })();
 
-        console.log('SigmaPerformance · Dreamscape (reduced) loaded.');
-        console.log('✨ Modes: mandala, aurora, tesseract, fractal');
+        console.log('SigmaPerformance · Professional PC Optimization loaded.');
+        console.log('✨ Dreamscape: mandala, aurora, tesseract, fractal');
         console.log('🖥️  Terminal: commands: sigma perf, services, languages, tools, clear');
-        console.log('🔒 No auto-focus on load – page stays at top.');
     </script>
 </body>
 </html>
